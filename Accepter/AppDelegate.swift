@@ -20,17 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static let container = Container()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-                
-        MockUrlProtocol.apiUrls = [
-            "baseUrl": AppSettings.baseUrl,
-            "loginUrl": AppSettings.loginUrl,
-            "userUrl": AppSettings.userUrl,
-            "expensesUrl": AppSettings.expensesUrl
-        ]
-        URLProtocol.registerClass(MockUrlProtocol.self)
         
         AppDelegate.initializeIocContainer()
-//        try! AppDelegate.container.resolve(LocalStorageService.self)?.initUsers()
+        try! AppDelegate.container.resolve(LocalStorageService.self)?.initUsers()
         
         window = UIWindow(frame: UIScreen.main.bounds)
         coordinator = AppCoordinator(window: window!)
@@ -47,16 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private static func initializeIocContainer() {
         container.register(DialogService.self) { _ in DialogService() }
-        container.register(WebRequestService.self) { _ in UrlSessionWebRequestService() }
-            .initCompleted { (resolver, object) in
-                var o = object as! WebRequestService
-                o.authorizationService = resolver.resolve(AuthorizationService.self)
-        }
-//        container.register(WebRequestService.self) { _ in AlamofireWebRequestService(urlProtocol: MockUrlProtocol.self) }
         container.autoregister(LocalStorageService.self, initializer: LocalStorageService.init).inObjectScope(.container)
         container.autoregister(AuthorizationService.self, initializer: AuthorizationService.init).inObjectScope(.container)
-        container.autoregister(ExpensesService.self, initializer: ExpensesService.init)
-        container.autoregister(UserService.self, initializer: UserService.init)
         container.autoregister(LoginViewModel.self, initializer: LoginViewModel.init)
         container.autoregister(HomeViewModel.self, initializer: HomeViewModel.init)
         container.autoregister(ExpenseViewModel.self, initializer: ExpenseViewModel.init)

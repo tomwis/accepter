@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class Expense: Object, Decodable {
+class Expense: Object {
     convenience init(title: String, category: String, amount: Double, status: Status? = nil) {
         self.init()
         self.title = title
@@ -25,8 +25,7 @@ class Expense: Object, Decodable {
         self.amount = expense.amount
         self.createdAt = expense.createdAt
         self.status = expense.status
-        self.userId = expense.userId
-//        self.user = expense.user
+        self.user = expense.user
     }
     
     @objc dynamic var id: String = NSUUID().uuidString
@@ -35,19 +34,14 @@ class Expense: Object, Decodable {
     @objc dynamic var amount: Double = 0.0
     @objc dynamic var createdAt: Date = Date()
     @objc dynamic var status: Status = .draft
-    @objc dynamic var userId: String?
-//    @objc dynamic var user: User?
+    @objc dynamic var user: User?
     @objc dynamic var showInNotifications: Bool = false
     
     override class func primaryKey() -> String? {
         return "id"
     }
     
-    enum CodingKeys: String, CodingKey {
-        case id, title, category, amount, createdAt, status, userId, showInNotifications
-    }
-    
-    @objc enum Status: Int, Decodable {
+    @objc enum Status: Int {
         case draft = 0
         case waitingForApproval = 1
         case approved = 2

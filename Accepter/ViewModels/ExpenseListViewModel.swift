@@ -21,7 +21,7 @@ class ExpenseListViewModel {
     
     let localStorageService: LocalStorageService
     let dialogService: DialogService
-    let userService: UserService
+    let authorizationService: AuthorizationService
     
     var filteredExpenseList = MutableObservableArray<Expense>([])
     var fullExpenseList = [Expense]()
@@ -35,33 +35,26 @@ class ExpenseListViewModel {
     static var counter = 0
     var classIndex: Int
     
-    init(localStorageService: LocalStorageService, dialogService: DialogService, userService: UserService) {
+    init(localStorageService: LocalStorageService, dialogService: DialogService, authorizationService: AuthorizationService) {
         self.localStorageService = localStorageService
         self.dialogService = dialogService
-        self.userService = userService
+        self.authorizationService = authorizationService
         
         classIndex = ExpenseListViewModel.counter
         ExpenseListViewModel.counter += 1
 
-//        initProperties()
-//        registerExpenseStatusObserver()
-//        loadExpenses()
+        initProperties()
+        registerExpenseStatusObserver()
+        loadExpenses()
         
         print("ExpenseListViewModel.init - classIndex: \(classIndex)")
     }
     
     func initProperties() {
-        try! userService.getUserData { (user) in
-            if let user = user {
-                self.currentUserId = user.id
-                self.isAcceptingManager = user.isApprover()
-            }
+        if let user = authorizationService.user {
+            self.currentUserId = user.id
+            self.isAcceptingManager = user.isApprover()
         }
-        
-//        if let user = try? localStorageService.getCurrentUser() {
-//            self.currentUserId = user.id
-//            self.isAcceptingManager = user.isApprover()
-//        }
     }
     
     private func registerExpenseStatusObserver() {
@@ -125,7 +118,7 @@ class ExpenseListViewModel {
     }
     
     private func isExpenseMine(_ expense: Expense) -> Bool {
-        return expense.userId == currentUserId
+        return expense.user?.id == currentUserId
     }
     
     private func expenseDeleted(at row: Int) {

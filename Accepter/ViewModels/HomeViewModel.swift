@@ -13,8 +13,6 @@ import RealmSwift
 class HomeViewModel {
     let authorizationService: AuthorizationService
     let localStorageService: LocalStorageService
-    let userService: UserService
-    let expensesService: ExpensesService
     
     var isApprovingManager = Observable<Bool>(false)
     var toSend = Observable<Int>(0)
@@ -22,75 +20,50 @@ class HomeViewModel {
     var newlyApproved = Observable<Int>(0)
     var newlyRejected = Observable<Int>(0)
     
-    init(authorizationService: AuthorizationService, localStorageService: LocalStorageService, userService: UserService, expensesService: ExpensesService) {
+    init(authorizationService: AuthorizationService, localStorageService: LocalStorageService) {
         self.authorizationService = authorizationService
         self.localStorageService = localStorageService
-        self.userService = userService
-        self.expensesService = expensesService
         
         initProperties()
         initExpenseCounts()
     }
     
     private func initProperties() {
-        try! userService.getUserData { (user) in
-            if let user = user {
-                self.isApprovingManager.value = user.isApprover()
-            }
+        if let user = authorizationService.user {
+            self.isApprovingManager.value = user.isApprover()
         }
-//        if let user = try? localStorageService.getCurrentUser() {
-//            self.isApprovingManager.value = user.isApprover()
-//        }
     }
     
     private func initExpenseCounts() {
-        do {
-            
-            try expensesService.getExpenses { (expenses) in
-                DispatchQueue.main.async {
-                    let token1 = expenses.observe { (changes) in
-                        switch changes {
-                        case .initial:
-                            break
-                        case .update(let results, _, _, _):
-                            self.updateExpenseCounts(expenses: results)
-                        case .error(let error):
-                            break
-                        }
-                    }
-                    self.localStorageService.addNotificationToken(token1)
-                    self.updateExpenseCounts(expenses: expenses)
+        do {            
+            let expenses = try localStorageService.loadExpenses()
+            let token1 = expenses.observe { (changes) in
+                switch changes {
+                case .initial:
+                    break
+                case .update(let results, _, _, _):
+                    self.updateExpenseCounts(expenses: results)
+                case .error(let error):
+                    break
                 }
             }
-            
-//            let expenses = try localStorageService.loadExpenses()
-//            let token1 = expenses.observe { (changes) in
-//                switch changes {
-//                case .initial:
-//                    break
-//                case .update(let results, _, _, _):
-//                    self.updateExpenseCounts(expenses: results)
-//                case .error(let error):
-//                    break
-//                }
-//            }
-//            localStorageService.addNotificationToken(token1)
-//            updateExpenseCounts(expenses: expenses)
-//
-//
-//            let expensesToApprove = try localStorageService.loadExpensesToApprove()
-//            let token2 = expensesToApprove.observe { (changes) in
-//                switch changes {
-//                case .initial:
-//                    break
-//                case .update(let results, _, _, _):
-//                    self.updateExpenseCounts(expensesToApprove: results)
-//                case .error(let error):
-//                    break
-//                }
-//            }
-//            localStorageService.addNotificationToken(token2)
-//            updateExpenseCounts(expensesToApprove: expensesToApprove)
+            localStorageService.addNotificationToken(token1)
+            updateExpenseCounts(expenses: expenses)
+
+
+            let expensesToApprove = try localStorageService.loadExpensesToApprove()
+            let token2 = expensesToApprove.observe { (changes) in
+                switch changes {
+                case .initial:
+                    break
+                case .update(let results, _, _, _):
+                    self.updateExpenseCounts(expensesToApprove: results)
+                case .error(let error):
+                    break
+                }
+            }
+            localStorageService.addNotificationToken(token2)
+            updateExpenseCounts(expensesToApprove: expensesToApprove)
             
         } catch {
             print("Error when loading dashboard items: \(error)")

@@ -12,26 +12,17 @@ import Bond
 class SettingsViewModel {
     let authorizationService: AuthorizationService
     let localStorageService: LocalStorageService
-    let userService: UserService
     var user = Observable<User?>(nil)
     
-    init(userService: UserService, authorizationService: AuthorizationService, localStorageService: LocalStorageService) {
-        self.userService = userService
+    init(authorizationService: AuthorizationService, localStorageService: LocalStorageService) {
         self.authorizationService = authorizationService
         self.localStorageService = localStorageService
         
-        do {
-            try userService.getUserData { (user) in
-                self.user.value = user
-            }
-        } catch {
-            print("SettingsViewModel - getUserData - error: \(error)")
-        }
+        user.value = authorizationService.user
     }
     
     func logout() {
-        authorizationService.token = nil
-        try? localStorageService.deleteCurrentUser()
+        authorizationService.user = nil
         localStorageService.invalidateNotificationTokens()
     }
 }

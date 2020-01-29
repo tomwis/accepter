@@ -100,7 +100,7 @@ class ExpenseViewModel {
     
     private func addNewExpense(title: String, category: String, amount: Double, status: Expense.Status) throws {
         let expense = Expense(title: title, category: category, amount: amount, status: status)
-        expense.userId = try localStorageService.getCurrentUser()?.id
+        expense.user = authorizationService.user
         expense.showInNotifications = status == .waitingForApproval
         
         try self.localStorageService.addExpense(expense)

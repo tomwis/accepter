@@ -28,8 +28,8 @@ class SettingsViewController: UIViewController, Storyboarded {
                     Name: \(user.name)
                     Login: \(user.login)
                     Email: \(user.email)
-                    Approver: \(user.approverId ?? "none")
-                    Subordinates: \(user.approverForUserIds.joined(separator: ", "))
+                    Approver: \(user.approver?.id ?? "none")
+                    Subordinates: \(user.approverForUsers.map {$0.login}.joined(separator: ", "))
                     """
                 }
                 
