@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Expense View Controller-->
+        <scene sceneID="Rdc-2I-bIp">
+            <objects>
+                <viewController storyboardIdentifier="ExpenseViewController" id="f4b-a2-USc" customClass="ExpenseViewController" customModule="Accepter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JEi-RU-k0U" customClass="IQPreviousNextView" customModule="IQKeyboardManagerSwift">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="26" translatesAutoresizingMaskIntoConstraints="NO" id="vaN-v4-DWT">
+                                <rect key="frame" x="24" y="68" width="327" height="492"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p9v-Be-5Im" customClass="ValidationField" customModule="Accepter" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="327" height="128"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pHY-AX-ixl" customClass="ValidationField" customModule="Accepter" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="154" width="327" height="128"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="fillProportionally" spacing="26" translatesAutoresizingMaskIntoConstraints="NO" id="bCT-fu-Cb7">
+                                        <rect key="frame" x="0.0" y="308" width="327" height="128"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OA9-2g-r72" customClass="ValidationField" customModule="Accepter" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="269" height="128"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="PLN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ap0-g0-4Hm">
+                                                <rect key="frame" x="295" y="0.0" width="32" height="128"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="g3C-f6-kbP">
+                                        <rect key="frame" x="0.0" y="462" width="327" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="idX-VW-Esk">
+                                                <rect key="frame" x="0.0" y="0.0" width="157.66666666666666" height="30"/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="Save as Draft">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="saveAsDraftTapped:" destination="f4b-a2-USc" eventType="touchUpInside" id="ssU-Dn-UWn"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kWP-F5-56n">
+                                                <rect key="frame" x="169.66666666666663" y="0.0" width="157.33333333333337" height="30"/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="Send to Approval">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="sendToApprovalTapped:" destination="f4b-a2-USc" eventType="touchUpInside" id="6GN-fL-4sd"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="cBc-Xs-loO" firstAttribute="trailing" secondItem="vaN-v4-DWT" secondAttribute="trailing" constant="24" id="05c-ox-tlU"/>
+                            <constraint firstItem="cBc-Xs-loO" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="vaN-v4-DWT" secondAttribute="bottom" constant="24" id="HMV-q9-258"/>
+                            <constraint firstItem="vaN-v4-DWT" firstAttribute="leading" secondItem="cBc-Xs-loO" secondAttribute="leading" constant="24" id="LJq-PI-nUb"/>
+                            <constraint firstItem="vaN-v4-DWT" firstAttribute="top" secondItem="cBc-Xs-loO" secondAttribute="top" constant="24" id="NcG-ea-s0L"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="cBc-Xs-loO"/>
+                    </view>
+                    <connections>
+                        <outlet property="amountField" destination="OA9-2g-r72" id="vZ5-jL-8JQ"/>
+                        <outlet property="categoryField" destination="pHY-AX-ixl" id="HPs-BX-wYM"/>
+                        <outlet property="saveAsDraftButton" destination="idX-VW-Esk" id="ZUW-so-lue"/>
+                        <outlet property="sendToApprovalButton" destination="kWP-F5-56n" id="NYS-w0-0bq"/>
+                        <outlet property="titleField" destination="p9v-Be-5Im" id="d7e-wm-QA7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="t6D-VG-kKE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52" y="95"/>
+        </scene>
+    </scenes>
+</document>

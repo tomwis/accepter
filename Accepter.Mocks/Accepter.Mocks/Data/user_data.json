@@ -1,0 +1,24 @@
+[
+    {
+        "access_token": "token1",
+        "data": {
+            "id": "user1_id",
+            "name": "Manager",
+            "login": "user1",
+            "email": "user1@company.com",
+            "approverForUserIds": [
+                "user2_id"
+                ]
+        }
+    },
+    {
+        "access_token": "token2",
+        "data": {
+            "id": "user2_id",
+            "name": "Normal user",
+            "login": "user2",
+            "email": "user2@company.com",
+            "approverId": "user1_id"
+        }
+    }
+]

@@ -1,0 +1,42 @@
+[
+    {
+        "id": "expense_id1",
+        "title": "Expense name 1",
+        "category": "Category 1",
+        "amount": 32.0,
+        "createdAt": "2020-01-29T10:50:21+00:00",
+        "status": 0,
+        "userId": "user1_id",
+        "showInNotifications": false
+    },
+    {
+        "id": "expense_id2",
+        "title": "Expense name 2",
+        "category": "Category 1",
+        "amount": 12.0,
+        "createdAt": "2020-01-29T10:40:21+00:00",
+        "status": 0,
+        "userId": "user1_id",
+        "showInNotifications": false
+    },
+    {
+        "id": "expense_id3",
+        "title": "Expense name 3",
+        "category": "Category 2",
+        "amount": 65.0,
+        "createdAt": "2020-01-29T10:45:21+00:00",
+        "status": 0,
+        "userId": "user2_id",
+        "showInNotifications": false
+    },
+    {
+        "id": "expense_id4",
+        "title": "Expense name 4",
+        "category": "Category 1",
+        "amount": 320.0,
+        "createdAt": "2020-01-29T10:30:21+00:00",
+        "status": 0,
+        "userId": "user2_id",
+        "showInNotifications": false
+    }
+]
