@@ -39,7 +39,9 @@ public class MockUrlProtocol: URLProtocol {
             case _ where url.hasSuffix(MockUrlProtocol.apiUrls["userUrl"]!):
                 processRequestWithAuth(file: "user_data")
             case _ where url.hasSuffix(MockUrlProtocol.apiUrls["expensesUrl"]!):
-                getExpenses(file: "expenses")
+                getExpenses()
+            case _ where url.hasSuffix(MockUrlProtocol.apiUrls["expensesToApproveUrl"]!):
+                getExpensesToApprove()
             default:
                 break
         }
@@ -67,22 +69,40 @@ public class MockUrlProtocol: URLProtocol {
         }
     }
     
-    private func getExpenses(file: String) {
-        let jsonData = loadJsonFromFile(named: file)
+    private func getExpenses() {
+        let expensesFileData = loadJsonFromFile(named: "expenses")
+        let userFileData = loadJsonFromFile(named: "user_data")
         
-        if let accessToken = getAccessToken(),
-            let userData = getJsonEntryFromList(data: jsonData, key: "access_token", value: accessToken),
-            let userJson = try! JSONSerialization.jsonObject(with: userData, options: []) as? [String: Any],
-            let login = userJson["id"] as? String,
-            let correctEntries = getJsonEntriesFromList(data: jsonData, key: "userId", value: login){
-            sendResponseToClient(data: correctEntries)
+        if let accessToken = getAccessToken() {
+            if let userData = getJsonEntryFromList(data: userFileData, key: "access_token", value: accessToken),
+                let userJson = try! JSONSerialization.jsonObject(with: userData, options: []) as? [String: Any],
+                let login = userJson["id"] as? String,
+                let correctEntries = getJsonEntriesFromList(data: expensesFileData, key: "userId", values: [login]) {
+                sendResponseToClient(data: correctEntries)
+            } else {
+                sendResponse(withCode: 500)
+            }
+        } else {
+            sendUnauthorizedResponse()
         }
+    }
+    
+    private func getExpensesToApprove() {
+        let expensesFileData = loadJsonFromFile(named: "expenses")
+        let userFileData = loadJsonFromFile(named: "user_data")
         
-//        if let correctEntry = getJsonEntriesFromList(data: jsonData, key: "userId", value: accessToken) {
-//            sendResponseToClient(data: correctEntry)
-//        } else {
-//            sendUnauthorizedResponse()
-//        }
+        if let accessToken = getAccessToken() {
+            if let userData = getJsonEntryFromList(data: userFileData, key: "access_token", value: accessToken),
+                let userJson = try! JSONSerialization.jsonObject(with: userData, options: []) as? [String: Any],
+                let subordinateIds = userJson["approverForUserIds"] as? [String],
+                let correctEntries = getJsonEntriesFromList(data: expensesFileData, key: "userId", values: subordinateIds) {
+                sendResponseToClient(data: correctEntries)
+            } else {
+                sendResponse(withCode: 500)
+            }
+        } else {
+            sendUnauthorizedResponse()
+        }
     }
     
     private func getAccessToken() -> String? {
@@ -96,9 +116,8 @@ public class MockUrlProtocol: URLProtocol {
     }
     
     private func getParameterFromBody(key: String) -> String? {
-        if let body = getHttpBody(),
-            let json = try? JSONSerialization.jsonObject(with: body, options: []) as? [String: Any] {
-            return json[key] as? String
+        if let body = getHttpBody() {
+            return getUrlEncodedParamValue(data: body, key: key)
         }
         
         return nil
@@ -123,6 +142,20 @@ public class MockUrlProtocol: URLProtocol {
         return data
     }
     
+    private func getUrlEncodedParamValue(data: Data, key: String) -> String? {
+        if let str = String(data: data, encoding: .utf8) {
+            let parts = str.split(separator: "&")
+            let keyvalue = parts.first { (substring) -> Bool in
+                let item = substring.split(separator: "=")
+                return item[0] == key
+            }
+            let item = keyvalue!.split(separator: "=")
+            return String(item[1])
+        }
+        
+        return nil
+    }
+    
     private func getJsonEntryFromList(data: Data, key: String, value: String) -> Data? {
         let list = try! JSONSerialization.jsonObject(with: data, options: []) as? [Any]
         
@@ -138,12 +171,13 @@ public class MockUrlProtocol: URLProtocol {
         return try? JSONSerialization.data(withJSONObject: value["data"]!, options: [])
     }
     
-    private func getJsonEntriesFromList(data: Data, key: String, value: String) -> Data? {
+    private func getJsonEntriesFromList(data: Data, key: String, values: [String]) -> Data? {
         let list = try! JSONSerialization.jsonObject(with: data, options: []) as? [Any]
         
         let entries = list?.filter({ (obj) -> Bool in
-            if let dict = obj as? [String: Any] {
-                return (dict[key] as? String) == value
+            if let dict = obj as? [String: Any],
+                let item = (dict[key] as? String) {
+                return values.contains(item)
             }
             return false
         })
@@ -166,7 +200,11 @@ public class MockUrlProtocol: URLProtocol {
     }
     
     private func sendUnauthorizedResponse() {
-        let response = HTTPURLResponse(url: request.url!, statusCode: 401, httpVersion: nil, headerFields: nil)!
+        sendResponse(withCode: 401)
+    }
+    
+    private func sendResponse(withCode code: Int) {
+        let response = HTTPURLResponse(url: request.url!, statusCode: code, httpVersion: nil, headerFields: nil)!
         client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
         client?.urlProtocolDidFinishLoading(self)
     }

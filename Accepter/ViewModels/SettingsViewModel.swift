@@ -31,7 +31,7 @@ class SettingsViewModel {
     
     func logout() {
         authorizationService.token = nil
-        try? localStorageService.deleteCurrentUser()
         localStorageService.invalidateNotificationTokens()
+        try? localStorageService.deleteAllData()
     }
 }

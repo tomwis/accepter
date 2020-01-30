@@ -4,7 +4,7 @@
         "title": "Expense name 1",
         "category": "Category 1",
         "amount": 32.0,
-        "createdAt": "2020-01-29T10:50:21+00:00",
+        "createdAt": "2020-01-29T10:50:21",
         "status": 0,
         "userId": "user1_id",
         "showInNotifications": false
@@ -14,7 +14,7 @@
         "title": "Expense name 2",
         "category": "Category 1",
         "amount": 12.0,
-        "createdAt": "2020-01-29T10:40:21+00:00",
+        "createdAt": "2020-01-29T10:40:21",
         "status": 0,
         "userId": "user1_id",
         "showInNotifications": false
@@ -24,7 +24,7 @@
         "title": "Expense name 3",
         "category": "Category 2",
         "amount": 65.0,
-        "createdAt": "2020-01-29T10:45:21+00:00",
+        "createdAt": "2020-01-29T10:45:21",
         "status": 0,
         "userId": "user2_id",
         "showInNotifications": false
@@ -34,9 +34,59 @@
         "title": "Expense name 4",
         "category": "Category 1",
         "amount": 320.0,
-        "createdAt": "2020-01-29T10:30:21+00:00",
+        "createdAt": "2020-01-29T10:30:21",
         "status": 0,
         "userId": "user2_id",
+        "showInNotifications": false
+    },
+    {
+        "id": "expense_id5",
+        "title": "Expense name 5 - to approve",
+        "category": "Category 1",
+        "amount": 321.0,
+        "createdAt": "2020-01-29T10:31:21",
+        "status": 1,
+        "userId": "user2_id",
+        "showInNotifications": false
+    },
+    {
+        "id": "expense_id6",
+        "title": "Expense name 6 - approved",
+        "category": "Category 1",
+        "amount": 51,
+        "createdAt": "2020-01-28T09:21:21",
+        "status": 2,
+        "userId": "user2_id",
+        "showInNotifications": false
+    },
+    {
+        "id": "expense_id7",
+        "title": "Expense name 7 - approved",
+        "category": "Category 2",
+        "amount": 48,
+        "createdAt": "2020-01-29T09:21:21",
+        "status": 2,
+        "userId": "user2_id",
+        "showInNotifications": true
+    },
+    {
+        "id": "expense_id8",
+        "title": "Expense name 8 - rejected",
+        "category": "Category 2",
+        "amount": 99,
+        "createdAt": "2020-01-29T09:21:21",
+        "status": 3,
+        "userId": "user2_id",
+        "showInNotifications": false
+    },
+    {
+        "id": "expense_id9",
+        "title": "Expense name 9 - approved",
+        "category": "Category 1",
+        "amount": 89,
+        "createdAt": "2020-01-23T09:21:21",
+        "status": 2,
+        "userId": "user1_id",
         "showInNotifications": false
     }
 ]

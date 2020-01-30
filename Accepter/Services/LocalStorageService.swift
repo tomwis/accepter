@@ -30,8 +30,6 @@ class LocalStorageService {
     
     func loadExpenses() throws -> Results<Expense> {
         let realm = try Realm()
-        let users = realm.objects(User.self)
-        print("loadExpenses - all users: \(users)")
         if let user = try getCurrentUser(realm: realm) {
             let forUser = NSPredicate(format: "userId == %@", user.id)
             let expenses = realm.objects(Expense.self).filter(forUser).sorted(byKeyPath: "createdAt")
@@ -43,8 +41,9 @@ class LocalStorageService {
     
     func loadExpensesToApprove() throws -> Results<Expense> {
         let realm = try Realm()
-        if let user = try getCurrentUser(realm: realm) {
-            let userIds = Array(user.approverForUserIds.map {$0})
+        if let user = try getCurrentUser(realm: realm),
+            let subordinateIds = user.approverForUserIds {
+            let userIds = Array(subordinateIds.map {$0})
             let forUsers = NSPredicate(format: "userId IN %@ AND status == 1", userIds)
             let expenses = realm.objects(Expense.self).filter(forUsers).sorted(byKeyPath: "createdAt")
             return expenses
@@ -90,20 +89,6 @@ class LocalStorageService {
         
         self.addNotificationToken(notificationToken)
     }
-    
-//    func initUsers() throws {
-//        let realm = try Realm()
-//
-//        guard realm.objects(User.self).count == 0 else { return }
-//
-//        try! realm.write {
-//            let user1 = User(name: "Manager", login: "user1", email: "user1@company.com")
-//            let user2 = User(name: "Normal user", login: "user2", email: "user2@company.com", approver: user1)
-//            user1.approverForUsers.append(user2)
-//            realm.add(user1)
-//            realm.add(user2)
-//        }
-//    }
 
     func deleteUsersAndObserveChanges() throws -> Results<User> {
         let realm = try Realm()
@@ -115,48 +100,30 @@ class LocalStorageService {
     }
     
     func getCurrentUser(realm: Realm? = nil) throws -> User? {
-        print("getCurrentUser")
-//        let rlm = try realm ?? Realm()
-        let rlm = try Realm()
+        let rlm = try realm ?? Realm()
+        rlm.refresh()
         let users = rlm.objects(User.self)
-        print("getCurrentUser - all users: \(users)")
         let user = users.first
-        print("getCurrentUser - user: \(user)")
         return user
     }
     
-    func saveCurrentUser(user: User, completionHandler: () -> Void) throws {
+    func saveCurrentUser(user: User) throws {
         print("saveCurrentUser: \(user)")
         let realm = try Realm()
         let allUsers = realm.objects(User.self)
-        print("saveCurrentUser - get all: \(allUsers)")
-        realm.beginWrite()
-//        try realm.write {
-            print("saveCurrentUser - delete all: \(allUsers)")
+        try realm.write {
             realm.delete(allUsers)
-            let allUsers2 = realm.objects(User.self)
-            print("saveCurrentUser - get all 2: \(allUsers2)")
-            print("saveCurrentUser - add: \(user)")
             realm.add(user, update: .all)
-            print("saveCurrentUser - added: \(user)")
-//        }
-        try realm.commitWrite()
-        completionHandler()
-        let allUsers3 = realm.objects(User.self)
-        print("saveCurrentUser - get all 3: \(allUsers3)")
+        }
+        realm.refresh()
     }
     
     func deleteCurrentUser() throws {
         let realm = try Realm()
         let allUsers = realm.objects(User.self)
-        print("deleteCurrentUser - all users: \(allUsers)")
         try realm.write {
             realm.delete(allUsers)
-            let allUsers2 = realm.objects(User.self)
-            print("deleteCurrentUser - after deleted: \(allUsers2)")
         }
-        let allUsers3 = realm.objects(User.self)
-        print("deleteCurrentUser - after deleted 2: \(allUsers3)")
     }
     
     func addNotificationToken(_ token: NotificationToken) {
@@ -170,5 +137,12 @@ class LocalStorageService {
         }
         
         self.notificationTokens.removeAll()
+    }
+    
+    func deleteAllData() throws {
+        let realm = try Realm()
+        try realm.write {
+            realm.deleteAll()
+        }
     }
 }

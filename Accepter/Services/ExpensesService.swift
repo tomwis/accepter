@@ -18,7 +18,7 @@ class ExpensesService {
         self.localStorageService = localStorageService
     }
     
-    func getExpenses(completionHandler: @escaping (Results<Expense>) -> Void) throws {
+    func getExpenses(_ completionHandler: @escaping (Results<Expense>) -> Void) throws {
         let expenses = try localStorageService.loadExpenses()
         
         if expenses.count > 0 {
@@ -26,15 +26,31 @@ class ExpensesService {
         } else {
             try webRequestService.get(url: AppSettings.baseUrl + AppSettings.expensesUrl) { (expenses: [Expense]?) in
                 if let expenses = expenses {
-                    try? self.localStorageService.saveExpenses(expenses)
-                    let expensesResult = try! self.localStorageService.loadExpenses()
-                    completionHandler(expensesResult)
+                    DispatchQueue.main.async {
+                        try? self.localStorageService.saveExpenses(expenses)
+                        let expensesResult = try! self.localStorageService.loadExpenses()
+                        completionHandler(expensesResult)
+                    }
                 }
             }
         }
     }
     
-    func getExpensesToApprove() {
+    func getExpensesToApprove(_ completionHandler: @escaping (Results<Expense>) -> Void) throws {
+        let expenses = try localStorageService.loadExpensesToApprove()
         
+        if expenses.count > 0 {
+            completionHandler(expenses)
+        } else {
+            try webRequestService.get(url: AppSettings.baseUrl + AppSettings.expensesToApproveUrl) { (expenses: [Expense]?) in
+                if let expenses = expenses {
+                    DispatchQueue.main.async {
+                        try? self.localStorageService.saveExpenses(expenses)
+                        let expensesResult = try! self.localStorageService.loadExpensesToApprove()
+                        completionHandler(expensesResult)
+                    }
+                }
+            }
+        }
     }
 }

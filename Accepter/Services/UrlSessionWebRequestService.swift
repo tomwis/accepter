@@ -16,61 +16,23 @@ class UrlSessionWebRequestService : WebRequestService {
         request.addValue("Bearer \(authorizationService?.token?.accessToken ?? "")", forHTTPHeaderField: "Authorization")
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             self.processResponse(data, response, error, completionHandler)
-            
-//            print("Url session -> get -> response")
-//            print("Data: \(data)")
-//            print("Response: \(response)")
-//
-//            if let error = error {
-//                print("Url session -> get: error: \(error)")
-//                completionHandler(nil)
-//                return
-//            }
-//
-//            do {
-//                if let data = data,
-//                let httpResponse = response as? HTTPURLResponse,
-//                    200..<300 ~= httpResponse.statusCode {
-//                    let result = try JSONDecoder().decode(TResponse.self, from: data)
-//                    completionHandler(result)
-//                    return
-//                }
-//            } catch {
-//                print("Error when decoding response: \(error)")
-//            }
-            
-//                completionHandler(nil)
         }.resume()
     }
     
     func post<TBody, TResponse>(url: String, data: TBody, completionHandler: @escaping (TResponse?) -> Void) throws where TBody : Encodable, TResponse: Decodable {
         var request = try URLRequest(url: url, method: .post)
         let body = try JSONEncoder().encode(data)
-        request.httpBody = body
-        request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-            self.processResponse(data, response, error, completionHandler)
-//            if let error = error {
-//                print("Url session -> post: error: \(error)")
-//                completionHandler(nil)
-//                return
-//            }
-//
-//            do {
-//                if let data = data,
-//                let httpResponse = response as? HTTPURLResponse,
-//                    200..<300 ~= httpResponse.statusCode {
-//                    let result = try JSONDecoder().decode(TResponse.self, from: data)
-//                    completionHandler(result)
-//                    return
-//                }
-//            } catch {
-//                print("Error when decoding response: \(error)")
-//            }
+        let dict = try JSONSerialization.jsonObject(with: body, options: []) as? [String: Any]
+        if let bodyParams = dict?.reduce("", { (result, partialResult) -> String in
+            return result + "\(partialResult.key)=\(partialResult.value)&"
+        }) {
+            request.httpBody = Data(bodyParams.utf8)
+            request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
             
-//            completionHandler(nil)
-        }.resume()
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
+                self.processResponse(data, response, error, completionHandler)
+            }.resume()
+        }
     }
     
     private func processResponse<TResponse>(_ data: Data?, _ response: URLResponse?, _ error: Error?, _ completionHandler: @escaping (TResponse?) -> Void) where TResponse: Decodable {
@@ -84,7 +46,7 @@ class UrlSessionWebRequestService : WebRequestService {
             if let data = data,
             let httpResponse = response as? HTTPURLResponse,
                 200..<300 ~= httpResponse.statusCode {
-                let result = try JSONDecoder().decode(TResponse.self, from: data)
+                let result = try getJsonDecoder().decode(TResponse.self, from: data)
                 completionHandler(result)
                 return
             }
@@ -93,5 +55,22 @@ class UrlSessionWebRequestService : WebRequestService {
         }
         
         completionHandler(nil)
+    }
+    
+    private func getJsonDecoder() -> JSONDecoder {
+        let decoder = JSONDecoder()
+        
+        decoder.dateDecodingStrategy = .custom({ (decoder) -> Date in
+            let formatter = DateFormatter()
+            formatter.calendar = Calendar(identifier: .iso8601)
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            if let dateStr = try? decoder.singleValueContainer().decode(String.self) {
+                return formatter.date(from: dateStr) ?? Date()
+            }
+            
+            return Date()
+        })
+        
+        return decoder
     }
 }

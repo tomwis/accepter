@@ -22,6 +22,7 @@ class ExpenseListViewModel {
     let localStorageService: LocalStorageService
     let dialogService: DialogService
     let userService: UserService
+    let expensesService: ExpensesService
     
     var filteredExpenseList = MutableObservableArray<Expense>([])
     var fullExpenseList = [Expense]()
@@ -35,17 +36,18 @@ class ExpenseListViewModel {
     static var counter = 0
     var classIndex: Int
     
-    init(localStorageService: LocalStorageService, dialogService: DialogService, userService: UserService) {
+    init(localStorageService: LocalStorageService, dialogService: DialogService, userService: UserService, expensesService: ExpensesService) {
         self.localStorageService = localStorageService
         self.dialogService = dialogService
         self.userService = userService
+        self.expensesService = expensesService
         
         classIndex = ExpenseListViewModel.counter
         ExpenseListViewModel.counter += 1
 
-//        initProperties()
-//        registerExpenseStatusObserver()
-//        loadExpenses()
+        initProperties()
+        registerExpenseStatusObserver()
+        loadExpenses()
         
         print("ExpenseListViewModel.init - classIndex: \(classIndex)")
     }
@@ -57,11 +59,6 @@ class ExpenseListViewModel {
                 self.isAcceptingManager = user.isApprover()
             }
         }
-        
-//        if let user = try? localStorageService.getCurrentUser() {
-//            self.currentUserId = user.id
-//            self.isAcceptingManager = user.isApprover()
-//        }
     }
     
     private func registerExpenseStatusObserver() {
@@ -86,16 +83,17 @@ class ExpenseListViewModel {
     
     func loadExpenses() {
         do {
-            let expenses = try localStorageService.loadExpenses()
-            localStorageService.addNotificationToken(registerExpensesChangesNotification(expenses))
-            
-            fullExpenseList = Array(expenses)
-            filteredExpenseList.replace(with: self.fullExpenseList)
+            try expensesService.getExpenses({ (expenses) in
+                self.localStorageService.addNotificationToken(self.registerExpensesChangesNotification(expenses))
+                self.fullExpenseList = Array(expenses)
+                self.filteredExpenseList.replace(with: self.fullExpenseList)
+            })
             
             if isAcceptingManager {
-                let expenseListToApproveResult = try localStorageService.loadExpensesToApprove()
-                fullExpenseListToApprove = Array(expenseListToApproveResult)
-                localStorageService.addNotificationToken(registerExpensesChangesNotification(expenseListToApproveResult))
+                try expensesService.getExpensesToApprove({ (expensesToApprove) in
+                    self.fullExpenseListToApprove = Array(expensesToApprove)
+                    self.localStorageService.addNotificationToken(self.registerExpensesChangesNotification(expensesToApprove))
+                })
             }
             
         } catch {

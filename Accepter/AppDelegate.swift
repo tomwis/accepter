@@ -25,12 +25,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             "baseUrl": AppSettings.baseUrl,
             "loginUrl": AppSettings.loginUrl,
             "userUrl": AppSettings.userUrl,
-            "expensesUrl": AppSettings.expensesUrl
+            "expensesUrl": AppSettings.expensesUrl,
+            "expensesToApproveUrl": AppSettings.expensesToApproveUrl
         ]
         URLProtocol.registerClass(MockUrlProtocol.self)
         
         AppDelegate.initializeIocContainer()
-//        try! AppDelegate.container.resolve(LocalStorageService.self)?.initUsers()
         
         window = UIWindow(frame: UIScreen.main.bounds)
         coordinator = AppCoordinator(window: window!)
@@ -47,12 +47,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private static func initializeIocContainer() {
         container.register(DialogService.self) { _ in DialogService() }
-        container.register(WebRequestService.self) { _ in UrlSessionWebRequestService() }
+//        container.register(WebRequestService.self) { _ in UrlSessionWebRequestService() }
+//            .initCompleted { (resolver, object) in
+//                var o = object as! WebRequestService
+//                o.authorizationService = resolver.resolve(AuthorizationService.self)
+//        }
+        container.register(WebRequestService.self) { _ in AlamofireWebRequestService(urlProtocol: MockUrlProtocol.self) }
             .initCompleted { (resolver, object) in
                 var o = object as! WebRequestService
                 o.authorizationService = resolver.resolve(AuthorizationService.self)
         }
-//        container.register(WebRequestService.self) { _ in AlamofireWebRequestService(urlProtocol: MockUrlProtocol.self) }
         container.autoregister(LocalStorageService.self, initializer: LocalStorageService.init).inObjectScope(.container)
         container.autoregister(AuthorizationService.self, initializer: AuthorizationService.init).inObjectScope(.container)
         container.autoregister(ExpensesService.self, initializer: ExpensesService.init)

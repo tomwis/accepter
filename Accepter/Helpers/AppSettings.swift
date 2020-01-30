@@ -13,4 +13,5 @@ struct AppSettings {
     static let loginUrl = "/login"
     static let userUrl = "/user"
     static let expensesUrl = "/expenses"
+    static let expensesToApproveUrl = "/expensestoapprove"
 }

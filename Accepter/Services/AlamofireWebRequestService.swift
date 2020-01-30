@@ -26,26 +26,13 @@ class AlamofireWebRequestService : WebRequestService {
     }
     
     func get<TResponse>(url: String, completionHandler: @escaping (TResponse?) -> Void) throws where TResponse: Decodable {
-        sessionManager.request(url)
+        let headers = [
+            "Authorization": "Bearer \(authorizationService?.token?.accessToken ?? "")"
+        ]
+        sessionManager.request(url, headers: headers)
             .validate(statusCode: 200..<300)
             .responseData { (response) in
                 self.processResponse(response.result, completionHandler)
-//                switch response.result {
-//                case .success(let data):
-//                    do {
-//                        let result = try JSONDecoder().decode(TResponse.self, from: data)
-//                        completionHandler(result)
-//                    return
-//                    } catch {
-//                        print("Get json decoder error: \(error)")
-//                    }
-//                case .failure(let error):
-//                    print("Get request response error: \(error)")
-//                    completionHandler(nil)
-//                    return
-//                }
-//
-//            completionHandler(nil)
         }
     }
     
@@ -59,38 +46,6 @@ class AlamofireWebRequestService : WebRequestService {
             .validate(statusCode: 200..<300)
             .responseData { (response) in
                 self.processResponse(response.result, completionHandler)
-//                switch response.result {
-//                case .success(let data):
-//                    do {
-//                        let result = try JSONDecoder().decode(TResponse.self, from: data)
-//                        completionHandler(result)
-//                    return
-//                    } catch {
-//                        print("Post json decoder error: \(error)")
-//                    }
-//                case .failure(let error):
-//                    print("Post request response error: \(error)")
-//                    completionHandler(nil)
-//                    return
-//                }
-                
-//            if let error = response.error {
-//                print("Post request response error: \(error)")
-//                completionHandler(nil)
-//                return
-//            }
-//
-//            if let data = response.data {
-//                do {
-//                    let result = try JSONDecoder().decode(TResponse.self, from: data)
-//                    completionHandler(result)
-//                    return
-//                } catch {
-//                    print("Post json decoder error: \(error)")
-//                }
-//            }
-            
-            completionHandler(nil)
         }
     }
     
@@ -104,7 +59,7 @@ class AlamofireWebRequestService : WebRequestService {
         switch result {
         case .success(let data):
             do {
-                let result = try JSONDecoder().decode(TResponse.self, from: data)
+                let result = try getJsonDecoder().decode(TResponse.self, from: data)
                 completionHandler(result)
             return
             } catch {
@@ -117,5 +72,22 @@ class AlamofireWebRequestService : WebRequestService {
         }
         
         completionHandler(nil)
+    }
+    
+    private func getJsonDecoder() -> JSONDecoder {
+        let decoder = JSONDecoder()
+        
+        decoder.dateDecodingStrategy = .custom({ (decoder) -> Date in
+            let formatter = DateFormatter()
+            formatter.calendar = Calendar(identifier: .iso8601)
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            if let dateStr = try? decoder.singleValueContainer().decode(String.self) {
+                return formatter.date(from: dateStr) ?? Date()
+            }
+            
+            return Date()
+        })
+        
+        return decoder
     }
 }

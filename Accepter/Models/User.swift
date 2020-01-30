@@ -31,6 +31,19 @@ class User: Object, Decodable {
 //        self.approverForUsers = user.approverForUsers
 //    }
     
+    required convenience init(from decoder: Decoder) throws {
+        self.init()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(String.self, forKey: .id)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.login = try container.decode(String.self, forKey: .login)
+        self.email = try container.decode(String.self, forKey: .email)
+        self.approverId = try container.decodeIfPresent(String.self, forKey: .approverId)
+        if let list = try container.decodeIfPresent([String].self, forKey: .approverForUserIds) {
+            self.approverForUserIds?.append(objectsIn: list)
+        }
+    }
+    
     @objc dynamic var id: String = "" //NSUUID().uuidString
     @objc dynamic var name: String = ""
     @objc dynamic var login: String = ""
@@ -39,14 +52,14 @@ class User: Object, Decodable {
 //    dynamic var approverForUsers = List<User>()
 //    let approvers = LinkingObjects(fromType: User.self, property: "approverForUsers")
     @objc dynamic var approverId: String?
-    let approverForUserIds = List<String>()
+    let approverForUserIds: List<String>? = List<String>()
     
     func hasApprover() -> Bool {
         return approverId != nil
     }
     
     func isApprover() -> Bool {
-        return (approverForUserIds.count ?? 0) > 0
+        return (approverForUserIds?.count ?? 0) > 0
     }
     
     override class func primaryKey() -> String? {
