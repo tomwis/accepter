@@ -20,6 +20,7 @@ class ExpenseViewController: UIViewController, Storyboarded {
     @IBOutlet weak var sendToApprovalButton: UIButton!
     @IBOutlet weak var attachmentCollectionView: UICollectionView!
     @IBOutlet weak var attachmentCountLabel: UILabel!
+    @IBOutlet weak var addAttachmentButton: UIButton!
     
     weak var coordinator: Coordinator?
     let viewModel = AppDelegate.container.resolve(ExpenseViewModel.self)!
@@ -66,6 +67,7 @@ class ExpenseViewController: UIViewController, Storyboarded {
         viewModel.status.map({$0 == .draft}).bind(to: amountField.field.reactive.isEnabled)
         viewModel.status.map({$0 != .draft}).bind(to: saveAsDraftButton.reactive.isHidden)
         viewModel.status.map({$0 != .draft}).bind(to: sendToApprovalButton.reactive.isHidden)
+        viewModel.status.map({$0 != .draft}).bind(to: addAttachmentButton.reactive.isHidden)
         
         _ = viewModel.didAdd.observeNext { (expense) in
             if let coordinator = self.coordinator as? ExpenseCoordinator {

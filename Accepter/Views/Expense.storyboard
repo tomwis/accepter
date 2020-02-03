@@ -153,6 +153,7 @@
                         <viewLayoutGuide key="safeArea" id="cBc-Xs-loO"/>
                     </view>
                     <connections>
+                        <outlet property="addAttachmentButton" destination="Q4z-Hb-4kV" id="ThA-ok-Iua"/>
                         <outlet property="amountField" destination="OA9-2g-r72" id="vZ5-jL-8JQ"/>
                         <outlet property="attachmentCollectionView" destination="z8k-Jq-upj" id="Iy3-4V-goI"/>
                         <outlet property="attachmentCountLabel" destination="tA2-St-Wlq" id="9Gi-jm-fwh"/>
