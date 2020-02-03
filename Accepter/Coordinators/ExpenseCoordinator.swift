@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ExpenseCoordinator: Coordinator {
+class ExpenseCoordinator: ExpenseEditCoordinator {
     
     var childCoordinators = [Coordinator]()
     var rootViewController: UIViewController

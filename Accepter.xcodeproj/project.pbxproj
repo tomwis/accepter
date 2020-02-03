@@ -17,6 +17,9 @@
 		223FB70D23DEE01800D78BEF /* Accepter_Mocks.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 223FB70B23DEE01800D78BEF /* Accepter_Mocks.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		223FB71323DEF2C000D78BEF /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223FB71223DEF2C000D78BEF /* LoginResponse.swift */; };
 		223FB71523DEFAE600D78BEF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223FB71423DEFAE600D78BEF /* Constants.swift */; };
+		2255DF5523E8203200B44458 /* ExpenseEditCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255DF5423E8203200B44458 /* ExpenseEditCoordinator.swift */; };
+		2258BFA123E2D13D0011E5EF /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2258BFA023E2D13D0011E5EF /* FileService.swift */; };
+		2258BFA423E2F1650011E5EF /* AttachmentThumbnailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2258BFA323E2F1650011E5EF /* AttachmentThumbnailCell.swift */; };
 		2264884F23DAE13000B6852D /* DashboardSummaryItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2264884E23DAE13000B6852D /* DashboardSummaryItem.xib */; };
 		2264885123DAE13A00B6852D /* DashboardSummaryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2264885023DAE13A00B6852D /* DashboardSummaryItem.swift */; };
 		2264885423DAFF8500B6852D /* UISingleTouchGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2264885323DAFF8500B6852D /* UISingleTouchGestureRecognizer.swift */; };
@@ -48,6 +51,8 @@
 		22D70A6423D5CD600031E0E5 /* ExpenseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D70A6323D5CD600031E0E5 /* ExpenseListViewModel.swift */; };
 		22D70A6A23D5F2C40031E0E5 /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D70A6923D5F2C40031E0E5 /* Expense.swift */; };
 		22DDF45423D70B390014CB73 /* LocalStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DDF45323D70B390014CB73 /* LocalStorageService.swift */; };
+		22E0B88D23E43AE40063C1A9 /* AttachmentPreview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22E0B88C23E43AE40063C1A9 /* AttachmentPreview.storyboard */; };
+		22E0B88F23E43AFF0063C1A9 /* AttachmentPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E0B88E23E43AFF0063C1A9 /* AttachmentPreviewViewController.swift */; };
 		22F86E0923CCA102004F62C4 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F86E0823CCA102004F62C4 /* LoginViewModel.swift */; };
 		22F86E0C23CCAE7A004F62C4 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F86E0B23CCAE7A004F62C4 /* Coordinator.swift */; };
 		22F86E0E23CCB098004F62C4 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F86E0D23CCB098004F62C4 /* Storyboarded.swift */; };
@@ -76,10 +81,12 @@
 		222AC6D623D6E3D900EF7760 /* ValidationField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationField.swift; sourceTree = "<group>"; };
 		222AC6D923D6EE0200EF7760 /* ValidationFieldName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationFieldName.swift; sourceTree = "<group>"; };
 		222C8DFF23CDA81E0002B1EE /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		223FB6EE23DEDDA700D78BEF /* Mocks2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mocks2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		223FB70B23DEE01800D78BEF /* Accepter_Mocks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Accepter_Mocks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		223FB71223DEF2C000D78BEF /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		223FB71423DEFAE600D78BEF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		2255DF5423E8203200B44458 /* ExpenseEditCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseEditCoordinator.swift; sourceTree = "<group>"; };
+		2258BFA023E2D13D0011E5EF /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
+		2258BFA323E2F1650011E5EF /* AttachmentThumbnailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentThumbnailCell.swift; sourceTree = "<group>"; };
 		2264884E23DAE13000B6852D /* DashboardSummaryItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardSummaryItem.xib; sourceTree = "<group>"; };
 		2264885023DAE13A00B6852D /* DashboardSummaryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardSummaryItem.swift; sourceTree = "<group>"; };
 		2264885323DAFF8500B6852D /* UISingleTouchGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISingleTouchGestureRecognizer.swift; sourceTree = "<group>"; };
@@ -113,6 +120,8 @@
 		22D70A6323D5CD600031E0E5 /* ExpenseListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListViewModel.swift; sourceTree = "<group>"; };
 		22D70A6923D5F2C40031E0E5 /* Expense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expense.swift; sourceTree = "<group>"; };
 		22DDF45323D70B390014CB73 /* LocalStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageService.swift; sourceTree = "<group>"; };
+		22E0B88C23E43AE40063C1A9 /* AttachmentPreview.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AttachmentPreview.storyboard; sourceTree = "<group>"; };
+		22E0B88E23E43AFF0063C1A9 /* AttachmentPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentPreviewViewController.swift; sourceTree = "<group>"; };
 		22F86E0823CCA102004F62C4 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		22F86E0B23CCAE7A004F62C4 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		22F86E0D23CCB098004F62C4 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
@@ -152,6 +161,14 @@
 				222AC6D923D6EE0200EF7760 /* ValidationFieldName.swift */,
 			);
 			path = Enums;
+			sourceTree = "<group>";
+		};
+		2258BFA223E2F1370011E5EF /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2258BFA323E2F1650011E5EF /* AttachmentThumbnailCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		2264885223DAFF7C00B6852D /* Helpers */ = {
@@ -221,12 +238,14 @@
 		22AC17FB23AA680600663D66 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2258BFA223E2F1370011E5EF /* Cells */,
 				22D07D5923D1D1AE00B1FADE /* Expense.storyboard */,
 				22D70A5F23D5CCD90031E0E5 /* ExpenseList.storyboard */,
 				2212FA7D23BF5D1E00515D99 /* Home.storyboard */,
 				22AC17FE23AA682300663D66 /* Login.storyboard */,
 				22D07D5723D1D14100B1FADE /* Main.storyboard */,
 				22D07D5F23D1D21700B1FADE /* Settings.storyboard */,
+				22E0B88C23E43AE40063C1A9 /* AttachmentPreview.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -240,6 +259,7 @@
 				22AC180023AA68D900663D66 /* LoginViewController.swift */,
 				22D07D6123D1D33E00B1FADE /* MainTabBarController.swift */,
 				22D07D5D23D1D20600B1FADE /* SettingsViewController.swift */,
+				22E0B88E23E43AFF0063C1A9 /* AttachmentPreviewViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -269,6 +289,7 @@
 			children = (
 				22F86E0B23CCAE7A004F62C4 /* Coordinator.swift */,
 				22F86E0D23CCB098004F62C4 /* Storyboarded.swift */,
+				2255DF5423E8203200B44458 /* ExpenseEditCoordinator.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -290,6 +311,7 @@
 				22DDF45323D70B390014CB73 /* LocalStorageService.swift */,
 				22B92C4D23D8498F00AEB0EA /* DialogService.swift */,
 				22B92C5123D8895400AEB0EA /* AuthorizationService.swift */,
+				2258BFA023E2D13D0011E5EF /* FileService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -321,7 +343,6 @@
 			isa = PBXGroup;
 			children = (
 				223FB70B23DEE01800D78BEF /* Accepter_Mocks.framework */,
-				223FB6EE23DEDDA700D78BEF /* Mocks2.framework */,
 				7EEA5AB40A9DAE97E6B11345 /* Pods_Accepter.framework */,
 			);
 			name = Frameworks;
@@ -398,6 +419,7 @@
 				22AC17F123AA670A00663D66 /* Assets.xcassets in Resources */,
 				22D07D5A23D1D1AE00B1FADE /* Expense.storyboard in Resources */,
 				22D07D6023D1D21700B1FADE /* Settings.storyboard in Resources */,
+				22E0B88D23E43AE40063C1A9 /* AttachmentPreview.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,10 +494,13 @@
 				22D07D6223D1D33E00B1FADE /* MainTabBarController.swift in Sources */,
 				22ADA54923D72DAF00BCFE63 /* Bond+Realm.swift in Sources */,
 				22B92C5023D8867C00AEB0EA /* User.swift in Sources */,
+				22E0B88F23E43AFF0063C1A9 /* AttachmentPreviewViewController.swift in Sources */,
 				22B92C4E23D8498F00AEB0EA /* DialogService.swift in Sources */,
 				22D70A5E23D5CC810031E0E5 /* ExpenseListViewController.swift in Sources */,
 				22D07D6623D1D55900B1FADE /* SettingsCoordinator.swift in Sources */,
 				22D70A6423D5CD600031E0E5 /* ExpenseListViewModel.swift in Sources */,
+				2255DF5523E8203200B44458 /* ExpenseEditCoordinator.swift in Sources */,
+				2258BFA123E2D13D0011E5EF /* FileService.swift in Sources */,
 				22F86E1023CCB428004F62C4 /* HomeCoordinator.swift in Sources */,
 				22D07D6423D1D4FC00B1FADE /* ExpenseCoordinator.swift in Sources */,
 				222AC6DA23D6EE0200EF7760 /* ValidationFieldName.swift in Sources */,
@@ -494,6 +519,7 @@
 				22D07D6A23D1DBCF00B1FADE /* AppCoordinator.swift in Sources */,
 				22F86E0923CCA102004F62C4 /* LoginViewModel.swift in Sources */,
 				222AC6D723D6E3D900EF7760 /* ValidationField.swift in Sources */,
+				2258BFA423E2F1650011E5EF /* AttachmentThumbnailCell.swift in Sources */,
 				22F86E0E23CCB098004F62C4 /* Storyboarded.swift in Sources */,
 				2264886023DB320A00B6852D /* LoginRequest.swift in Sources */,
 				223FB71523DEFAE600D78BEF /* Constants.swift in Sources */,

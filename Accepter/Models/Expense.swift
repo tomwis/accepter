@@ -36,6 +36,7 @@ class Expense: Object {
     @objc dynamic var status: Status = .draft
     @objc dynamic var user: User?
     @objc dynamic var showInNotifications: Bool = false
+    let attachments = List<String>()
     
     override class func primaryKey() -> String? {
         return "id"

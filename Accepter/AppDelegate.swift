@@ -41,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         container.register(DialogService.self) { _ in DialogService() }
         container.autoregister(LocalStorageService.self, initializer: LocalStorageService.init).inObjectScope(.container)
         container.autoregister(AuthorizationService.self, initializer: AuthorizationService.init).inObjectScope(.container)
+        container.autoregister(FileService.self, initializer: FileService.init)
         container.autoregister(LoginViewModel.self, initializer: LoginViewModel.init)
         container.autoregister(HomeViewModel.self, initializer: HomeViewModel.init)
         container.autoregister(ExpenseViewModel.self, initializer: ExpenseViewModel.init)

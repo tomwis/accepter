@@ -9,5 +9,7 @@
 import Foundation
 
 struct Constants {
-//    static let RealmQueueLabel = "realm.queue.bg"
+    static let AttachmentsFolderName = "attachments"
+    static let AttachmentsTemporaryFolderName = "attachments_tmp"
+    static let AttachmentsThumbnailsFolderName = "attachments_thumbnails"
 }

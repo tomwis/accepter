@@ -48,9 +48,7 @@ class ExpenseListViewController: UIViewController, UITableViewDelegate, Storyboa
     }
         
     func initBindings() {
-        viewModel.filteredExpenseList.bind(to: tableView) { (dataSource, indexPath, tableView) -> UITableViewCell in
-            return self.initCell(dataSource, indexPath, tableView)
-        }
+        viewModel.filteredExpenseList.bind(to: tableView, createCell: initCell(_:_:_:))
         
         viewModel.selectedTabIndex.bidirectionalBind(to: segmentedControl.reactive.selectedSegmentIndex)
         

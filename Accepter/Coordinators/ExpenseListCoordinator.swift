@@ -10,7 +10,7 @@ import Foundation
 
 import UIKit
 
-class ExpenseListCoordinator: Coordinator {
+class ExpenseListCoordinator: ExpenseEditCoordinator {
     var childCoordinators = [Coordinator]()
     var rootViewController: UIViewController
     var navigationController: UINavigationController {
