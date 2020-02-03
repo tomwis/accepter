@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Bond
 
 class AttachmentPreviewViewController: UIViewController, Storyboarded {
 
@@ -16,6 +17,7 @@ class AttachmentPreviewViewController: UIViewController, Storyboarded {
     @IBOutlet weak var imageViewTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var deleteAttachmentButton: UIBarButtonItem!
     
     var attachmentIndex: Int?
     var imageUrl: URL?
@@ -28,6 +30,12 @@ class AttachmentPreviewViewController: UIViewController, Storyboarded {
         
         if let imageUrl = imageUrl {
             imageView.image = UIImage(contentsOfFile: imageUrl.path)
+        }
+        
+        if let vm = viewModel {
+            if vm.status.value != .draft {
+                navigationItem.setRightBarButtonItems([], animated: false)
+            }
         }
     }
     

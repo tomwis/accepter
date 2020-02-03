@@ -49,6 +49,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="deleteAttachmentButton" destination="VUK-KA-1Mk" id="HhI-Is-u7A"/>
                         <outlet property="imageView" destination="ibu-Lo-Y8Z" id="qQg-vN-3Ks"/>
                         <outlet property="imageViewBottomConstraint" destination="RPk-Sa-g5d" id="qtB-ko-PCq"/>
                         <outlet property="imageViewLeadingConstraint" destination="4So-KM-MpJ" id="ci4-7o-mV3"/>
