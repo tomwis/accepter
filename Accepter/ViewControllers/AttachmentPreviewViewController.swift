@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Bond
 
 class AttachmentPreviewViewController: UIViewController, Storyboarded {
 
