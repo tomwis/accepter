@@ -38,6 +38,7 @@ class Expense: Object, Decodable {
     @objc dynamic var userId: String?
 //    @objc dynamic var user: User?
     @objc dynamic var showInNotifications: Bool = false
+    let attachments = List<String>()
     
     override class func primaryKey() -> String? {
         return "id"

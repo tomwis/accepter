@@ -8,7 +8,6 @@
 
 import Foundation
 import Alamofire
-import Accepter_Mocks
 
 class AlamofireWebRequestService : WebRequestService {
     weak var authorizationService: AuthorizationService?

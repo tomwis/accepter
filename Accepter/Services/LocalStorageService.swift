@@ -21,7 +21,7 @@ class LocalStorageService {
     
     func checkMigrations() {
         var config = Realm.Configuration()
-        config.schemaVersion = 9
+        config.schemaVersion = 10
         config.migrationBlock = { migration, oldSchemaVersion in
             // migration logic...
         }
