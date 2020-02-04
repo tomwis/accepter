@@ -19,6 +19,7 @@
 		223FB71523DEFAE600D78BEF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223FB71423DEFAE600D78BEF /* Constants.swift */; };
 		2254906F23E18AE000CF31D7 /* ExpensesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2254906E23E18ADF00CF31D7 /* ExpensesService.swift */; };
 		2255DF5523E8203200B44458 /* ExpenseEditCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255DF5423E8203200B44458 /* ExpenseEditCoordinator.swift */; };
+		2255DF5723E8623C00B44458 /* TextRecognitionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255DF5623E8623C00B44458 /* TextRecognitionService.swift */; };
 		2258BFA123E2D13D0011E5EF /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2258BFA023E2D13D0011E5EF /* FileService.swift */; };
 		2258BFA423E2F1650011E5EF /* AttachmentThumbnailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2258BFA323E2F1650011E5EF /* AttachmentThumbnailCell.swift */; };
 		2264884F23DAE13000B6852D /* DashboardSummaryItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2264884E23DAE13000B6852D /* DashboardSummaryItem.xib */; };
@@ -93,6 +94,7 @@
 		223FB71423DEFAE600D78BEF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2254906E23E18ADF00CF31D7 /* ExpensesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesService.swift; sourceTree = "<group>"; };
 		2255DF5423E8203200B44458 /* ExpenseEditCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseEditCoordinator.swift; sourceTree = "<group>"; };
+		2255DF5623E8623C00B44458 /* TextRecognitionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognitionService.swift; sourceTree = "<group>"; };
 		2258BFA023E2D13D0011E5EF /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		2258BFA323E2F1650011E5EF /* AttachmentThumbnailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentThumbnailCell.swift; sourceTree = "<group>"; };
 		2264884E23DAE13000B6852D /* DashboardSummaryItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardSummaryItem.xib; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 				227E08ED23E04EF0000C74D7 /* UserService.swift */,
 				2254906E23E18ADF00CF31D7 /* ExpensesService.swift */,
 				2258BFA023E2D13D0011E5EF /* FileService.swift */,
+				2255DF5623E8623C00B44458 /* TextRecognitionService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -512,6 +515,7 @@
 				2212FA8023BF5D7400515D99 /* HomeViewController.swift in Sources */,
 				223FB71323DEF2C000D78BEF /* LoginResponse.swift in Sources */,
 				22D07D6823D1D59C00B1FADE /* MainCoordinator.swift in Sources */,
+				2255DF5723E8623C00B44458 /* TextRecognitionService.swift in Sources */,
 				22D07D6223D1D33E00B1FADE /* MainTabBarController.swift in Sources */,
 				22ADA54923D72DAF00BCFE63 /* Bond+Realm.swift in Sources */,
 				22B92C5023D8867C00AEB0EA /* User.swift in Sources */,
