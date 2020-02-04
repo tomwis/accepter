@@ -17,6 +17,10 @@ class TextDetectionLayer: CALayer {
         self.regions = regions
     }
     
+    override init(layer: Any) {
+        super.init()
+    }
+    
     override func draw(in ctx: CGContext) {
         guard let regions = regions else {
             opacity = 0.0
@@ -35,18 +39,27 @@ class TextDetectionLayer: CALayer {
         let path = CGMutablePath()
         
         for ((pt1, pt2, pt3, pt4), string) in regions {
-            print("Rect: \(pt1), \(pt2), \(pt3), \(pt4), \(string)")
+//            print("Rect: \(pt1), \(pt2), \(pt3), \(pt4), \(string)")
 //            let topLeft = CGPoint(x: region.minX * width, y: region.minY * height)
 //            let topRight = CGPoint(x: region.maxX * width, y: region.minY * height)
 //            let bottomRight = CGPoint(x: region.maxX * width, y: region.maxY * height)
 //            let bottomLeft = CGPoint(x: region.minX * width, y: region.maxY * height)
 //            print("Rect: \(topLeft) | \(bottomRight)")
             
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .currency
+            formatter.locale = Locale(identifier: "en_US")
+            if let number = formatter.number(from: string) {
+                print("=== \(string) is a number: \(number.decimalValue)")
+            } else {
+                print("\(string) is NOT a number")
+            }
+            
             let topLeft = CGPoint(x: pt4.x * width, y: (1 - pt4.y) * height)
             let topRight = CGPoint(x: pt3.x * width, y: (1 - pt3.y) * height)
             let bottomRight = CGPoint(x: pt2.x * width, y: (1 - pt2.y) * height)
             let bottomLeft = CGPoint(x: pt1.x * width, y: (1 - pt1.y) * height)
-            print("Rect: \(topLeft) | \(topRight) | \(bottomRight) | \(bottomLeft)")
+//            print("Rect: \(topLeft) | \(topRight) | \(bottomRight) | \(bottomLeft)")
             
 //            path.move(to: topLeft)
 //            path.addLine(to: topRight)
@@ -65,7 +78,7 @@ class TextDetectionLayer: CALayer {
 //            string.draw(at: CGPoint(x: region.minX * width, y: region.minY * height))
 //            UIGraphicsPopContext()
             
-            break
+//            break
         }
         
         ctx.addPath(path)
@@ -116,6 +129,7 @@ class AttachmentPreviewViewController: UIViewController, Storyboarded {
             }
         }
         
+        selectTextOnImage()
     }
     var textDetectionLayer: TextDetectionLayer?
     func selectTextOnImage() {
@@ -123,7 +137,8 @@ class AttachmentPreviewViewController: UIViewController, Storyboarded {
             let data = image.pngData() {
             TextRecognitionService().findTextOnImage(imageData: data) { (rects) in
                 self.textDetectionLayer = TextDetectionLayer(regions: rects)
-                self.textDetectionLayer?.bounds = CGRect(origin: CGPoint(x: 0, y: 0), size: image.size)
+//                self.textDetectionLayer?.bounds = CGRect(origin: CGPoint(x: 0, y: 0), size: image.size)
+                self.textDetectionLayer?.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: image.size)
                 self.textDetectionLayer?.opacity = 0.0
                 self.imageView.layer.addSublayer(self.textDetectionLayer!)
                 self.textDetectionLayer?.setNeedsDisplay()
@@ -133,7 +148,7 @@ class AttachmentPreviewViewController: UIViewController, Storyboarded {
     
     override func viewDidLayoutSubviews() {
         updateImageScales()
-        selectTextOnImage()
+//        textDetectionLayer?.setNeedsDisplay()
     }
     
     func updateImageScales() {
@@ -191,6 +206,14 @@ extension AttachmentPreviewViewController: UIScrollViewDelegate {
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         centerImage()
-        textDetectionLayer?.setNeedsDisplay()
+        print("Scale: \(scrollView.zoomScale)")
+        
+//        if let image = imageView.image {
+////            textDetectionLayer?.transform = CATransform3DMakeScale(1.0 / scrollView.zoomScale, 1.0 / scrollView.zoomScale, 1)
+////            textDetectionLayer?.contentsScale = 1.0 / scrollView.zoomScale
+////            textDetectionLayer?.bounds = CGRect(x: 0, y: 0, width: image.size.width / scrollView.zoomScale, height: image.size.height / scrollView.zoomScale)
+//            textDetectionLayer?.bounds = CGRect(origin: CGPoint(x: 0, y: 0), size: image.size)
+//            textDetectionLayer?.setNeedsDisplay()
+//        }
     }
 }
