@@ -39,9 +39,6 @@ class ExpenseListViewModel {
         self.userService = userService
         self.expensesService = expensesService
         
-        classIndex = ExpenseListViewModel.counter
-        ExpenseListViewModel.counter += 1
-
         initProperties()
         registerExpenseStatusObserver()
         loadExpenses()
