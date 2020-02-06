@@ -8,8 +8,8 @@
 
 import Foundation
 
-enum ValidationFieldName {
-    enum Expense {
+struct FieldName {
+    enum Expense: Int, CaseIterable {
         case title
         case category
         case amount

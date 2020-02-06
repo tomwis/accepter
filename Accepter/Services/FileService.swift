@@ -11,6 +11,12 @@ import UIKit
 
 class FileService {
     
+    var imageService: ImageService
+    
+    init(imageService: ImageService) {
+        self.imageService = imageService
+    }
+    
     func loadFile(from fileUrl: URL) throws -> Data? {
         return try Data(contentsOf: fileUrl)
     }
@@ -62,11 +68,7 @@ class FileService {
     func generateThumbnail(for url: URL, at thumbnailUrl: URL, maxSize: CGSize) throws -> Data? {
                 
         if let image = UIImage(contentsOfFile: url.path) {
-            let newSize = getNewSizeForImage(currentSize: image.size, newMaxSize: maxSize)
-            UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-            image.draw(in: CGRect(origin: CGPoint(x: 0, y: 0), size: newSize))
-            let newImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
+            let newImage = imageService.resizeImage(image: image, newMaxSize: maxSize, opaque: true)
             
             if let imageData = newImage?.jpegData(compressionQuality: 0.8) {
                 try imageData.write(to: thumbnailUrl)
@@ -76,29 +78,5 @@ class FileService {
         }
         
         return nil
-    }
-    
-    private func getNewSizeForImage(currentSize: CGSize, newMaxSize: CGSize) -> CGSize {
-        let aspectRatio = currentSize.width / currentSize.height
-        var newWidth = newMaxSize.width
-        var newHeight = newMaxSize.height
-                    
-        if aspectRatio > 1 {
-            if currentSize.width < newMaxSize.width {
-                newWidth = currentSize.width
-            }
-            
-            newHeight = newWidth / aspectRatio
-        } else {
-            if currentSize.height < newMaxSize.height {
-                newHeight = currentSize.height
-            }
-            
-            newWidth = newHeight * aspectRatio
-        }
-        
-        let newSize = CGSize(width: newWidth, height: newHeight)
-        
-        return newSize
     }
 }

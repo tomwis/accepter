@@ -14,23 +14,23 @@ public class MockUrlProtocol: URLProtocol {
     public static var apiUrls: [String: String]!
     
     public override class func canInit(with request: URLRequest) -> Bool {
-        print("MockUrlProtocol -> canInit -> request: \(request)")
+//        print("MockUrlProtocol -> canInit -> request: \(request)")
 
         return request.url!.absoluteString.hasPrefix(apiUrls["baseUrl"]!)
     }
     
     public override class func canonicalRequest(for request: URLRequest) -> URLRequest {
-        print("MockUrlProtocol -> canonicalRequest -> request: \(request)")
+//        print("MockUrlProtocol -> canonicalRequest -> request: \(request)")
         return request
     }
     
     override init(request: URLRequest, cachedResponse: CachedURLResponse?, client: URLProtocolClient?) {
         super.init(request: request, cachedResponse: cachedResponse, client: client)
-        print("MockUrlProtocol -> init -> request: \(request), cachedResponse: \(cachedResponse), client: \(client)")
+//        print("MockUrlProtocol -> init -> request: \(request), cachedResponse: \(cachedResponse), client: \(client)")
     }
     
     public override func startLoading() {
-        print("MockUrlProtocol -> startLoading: \(self.request)")
+//        print("MockUrlProtocol -> startLoading: \(self.request)")
         
         let url = request.url!.absoluteString
         switch url {
@@ -210,6 +210,6 @@ public class MockUrlProtocol: URLProtocol {
     }
     
     public override func stopLoading() {
-        print("MockUrlProtocol -> stopLoading: \(self.request)")
+//        print("MockUrlProtocol -> stopLoading: \(self.request)")
     }
 }

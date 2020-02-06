@@ -10,31 +10,66 @@ import UIKit
 import Vision
 
 class TextRecognitionService {
-    func findTextOnImage(imageData: Data, _ completionHandler: @escaping ([((CGPoint, CGPoint, CGPoint, CGPoint), String)]) -> Void) {
-        let requestHandler = VNImageRequestHandler(data: imageData, options: [:])
+    var requests = [String: VNRecognizeTextRequest]()
+    
+    func findTextOnImage(imageData: Data, progressHandler: @escaping (Double) -> Void, _ completionHandler: @escaping ([((CGPoint, CGPoint, CGPoint, CGPoint), String)]) -> Void) -> String {
         
-        let request = VNRecognizeTextRequest { (request, error) in
-            guard let results = request.results as? [VNRecognizedTextObservation] else {
-                return
-            }
+        let id = NSUUID().uuidString
+        
+        DispatchQueue.global(qos: .background).async {
+            let requestHandler = VNImageRequestHandler(data: imageData, options: [:])
+
+            let request = VNRecognizeTextRequest { (request, error) in self.findTextOnImageCompleted(request, error, completionHandler) }
+            request.recognitionLevel = .accurate
+//            request.usesLanguageCorrection = true
+            request.revision = VNRecognizeTextRequestRevision1
+            request.progressHandler = { (request, fractionCompleted, error) in self.findTextOnImageProgress(request, fractionCompleted, error, progressHandler) }
             
-            var boundingBoxes = [((CGPoint, CGPoint, CGPoint, CGPoint), String)]()
-            for visionResult in results {
-                let maxCandidates = 1
-                guard let candidate = visionResult.topCandidates(maxCandidates).first else {
-                    continue
-                }
-//                print("Candidate: '\(candidate.string)', rect: \(visionResult.boundingBox)")
-                
-                let bounds = (visionResult.bottomLeft, visionResult.bottomRight, visionResult.topRight, visionResult.topLeft)
-                boundingBoxes.append((bounds, candidate.string))
-            }
+            self.requests[id] = request
             
-            completionHandler(boundingBoxes)
+            do {
+                try requestHandler.perform([request])
+            } catch {
+                print("findTextOnImage error: \(error)")
+            }
         }
-        request.recognitionLevel = .accurate
-        request.revision = VNRecognizeTextRequestRevision1
         
-        try! requestHandler.perform([request])
+        return id
+    }
+    
+    func cancelRequest(requestId: String?) {
+        print("TextRecognitionService.cancelRequest: \(requestId)")
+        
+        if let id = requestId {
+            requests[id]?.cancel()
+            requests[id] = nil
+        }
+    }
+    
+    private func findTextOnImageCompleted(_ request: VNRequest, _ error: Error?, _ completionHandler: @escaping ([((CGPoint, CGPoint, CGPoint, CGPoint), String)]) -> Void) {
+        guard let results = request.results as? [VNRecognizedTextObservation]
+            else { return }
+        
+        var boundingBoxes = [((CGPoint, CGPoint, CGPoint, CGPoint), String)]()
+        for visionResult in results {
+            let maxCandidates = 1
+            guard let candidate = visionResult.topCandidates(maxCandidates).first
+                else { continue }
+            
+//            print("candidate: \(candidate.string)")
+            
+            let bounds = (visionResult.bottomLeft, visionResult.bottomRight, visionResult.topRight, visionResult.topLeft)
+            boundingBoxes.append((bounds, candidate.string))
+        }
+        
+        completionHandler(boundingBoxes)
+    }
+    
+    private func findTextOnImageProgress(_ request: VNRequest, _ fractionCompleted: Double, _ error: Error?, _ progressHandler: @escaping (Double) -> Void) {
+        if let error = error {
+            print("findTextOnImageProgress error: \(error)")
+        }
+        
+        progressHandler(fractionCompleted)
     }
 }

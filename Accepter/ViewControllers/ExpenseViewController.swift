@@ -9,7 +9,6 @@
 import UIKit
 import Bond
 import ReactiveKit
-import AVFoundation
 
 class ExpenseViewController: UIViewController, Storyboarded {
     
@@ -26,8 +25,7 @@ class ExpenseViewController: UIViewController, Storyboarded {
     let viewModel = AppDelegate.container.resolve(ExpenseViewModel.self)!
     let dialogService = AppDelegate.container.resolve(DialogService.self)!
     var expense: Expense?
-    let imagePickerController = UIImagePickerController()
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -117,12 +115,17 @@ class ExpenseViewController: UIViewController, Storyboarded {
     }
     
     @objc func onAttachmentTapped(_ recognizer: UITapGestureRecognizer) {
-        if let c = coordinator as? ExpenseEditCoordinator,
-            let cell = recognizer.view as? AttachmentThumbnailCell,
-            let indexPath = self.attachmentCollectionView.indexPath(for: cell){
-            let fileUrl = viewModel.attachmentUrls[indexPath.row]
-            c.goToAttachmentPreview(viewModel: viewModel, filePath: fileUrl, indexOnList: indexPath.row)
-        }
+        guard let cell = recognizer.view as? AttachmentThumbnailCell,
+            let indexPath = self.attachmentCollectionView.indexPath(for: cell)
+            else { return }
+        
+        goToAttachment(index: indexPath.row)
+    }
+    
+    private func goToAttachment(index: Int) {
+        guard let c = coordinator as? ExpenseEditCoordinator else { return }
+        let fileUrl = viewModel.attachmentUrls[index]
+        c.goToAttachmentPreview(viewModel: viewModel, filePath: fileUrl, indexOnList: index, attachmentTextSelectionDelegate: self)
     }
     
     func clearFocus() {
@@ -154,59 +157,28 @@ class ExpenseViewController: UIViewController, Storyboarded {
         let controller = UIAlertController(title: "Add an attachment", message: nil, preferredStyle: .actionSheet)
         
         let action1 = UIAlertAction(title: "Take a photo", style: .default) { (_) in
-            if(self.isCameraAccessAuthorized()) {
-                self.openImagePicker(sourceType: .camera)
+            if(ImagePickerHelper.isCameraAccessAuthorized()) {
+                ImagePickerHelper.openImagePicker(viewController: self, delegate: self, sourceType: .camera)
             }
         }
-        let action2 = UIAlertAction(title: "From photo library", style: .default) { (_) in self.openImagePicker(sourceType: .photoLibrary) }
+        let action2 = UIAlertAction(title: "From photo library", style: .default) { (_) in
+            ImagePickerHelper.openImagePicker(viewController: self, delegate: self, sourceType: .photoLibrary) }
         controller.addAction(action1)
         controller.addAction(action2)
         
         present(controller, animated: true, completion: nil)
     }
     
-    private func openImagePicker(sourceType: UIImagePickerController.SourceType) {
-        
-        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
-            imagePickerController.delegate = self
-            imagePickerController.sourceType = sourceType
-            imagePickerController.allowsEditing = false
-            present(imagePickerController, animated: true)
-        } else {
-            switch sourceType {
-            case .camera:
-                dialogService.showError(message: "Camera is not available")
-            case .photoLibrary:
-                dialogService.showError(message: "Photo library is not available")
-            default:
-                break
-            }
-        }
-    }
-    
-    private func isCameraAccessAuthorized() -> Bool {
-        let cameraPermission = AVCaptureDevice.authorizationStatus(for: .video)
-        
-        switch cameraPermission {
-        case .notDetermined, .authorized:
-            return true
-        case .restricted, .denied:
-            dialogService.show(title: "Camera access", body: "Access to camera was denied. Open settings to allow camera access.", buttonTitle: "Settings", buttonHandler: openSettings, displayTimeInSeconds: 10)
-            return false
-        default:
-            return false
-        }
-    }
-    
-    private func openSettings() {
-        if let settingsUrl = URL(string: UIApplication.openSettingsURLString),
-            UIApplication.shared.canOpenURL(settingsUrl) {
-            UIApplication.shared.open(settingsUrl, options: [:], completionHandler: nil)
-        }
-    }
-    
     override func viewDidDisappear(_ animated: Bool) {
         viewModel.clearValidation()
+    }
+    
+    private func openAddedAttachmentIfFirst() {
+        if viewModel.attachmentUrls.count != 1 {
+            return
+        }
+        
+        goToAttachment(index: 0)
     }
 }
 
@@ -233,6 +205,21 @@ extension ExpenseViewController: UIImagePickerControllerDelegate, UINavigationCo
             viewModel.addAttachment(data: image.jpegData(compressionQuality: 0.8))
         }
         
-        picker.dismiss(animated: true)
+        picker.dismiss(animated: true) {
+            self.openAddedAttachmentIfFirst()
+        }
+    }
+}
+
+extension ExpenseViewController: AttachmentTextSelectionDelegate {
+    func selectedText(text: String, for field: FieldName.Expense) {
+        switch field {
+        case .title:
+            viewModel.title.value = text
+        case .category:
+            viewModel.category.value = text
+        case .amount:
+            viewModel.amount.value = text
+        }
     }
 }

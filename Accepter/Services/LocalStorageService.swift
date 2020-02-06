@@ -108,7 +108,6 @@ class LocalStorageService {
     }
     
     func saveCurrentUser(user: User) throws {
-        print("saveCurrentUser: \(user)")
         let realm = try Realm()
         let allUsers = realm.objects(User.self)
         try realm.write {
