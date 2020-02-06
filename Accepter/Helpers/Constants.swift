@@ -6,10 +6,12 @@
 //  Copyright © 2020 Tomasz Wiśniewski. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Constants {
     static let AttachmentsFolderName = "attachments"
     static let AttachmentsTemporaryFolderName = "attachments_tmp"
     static let AttachmentsThumbnailsFolderName = "attachments_thumbnails"
+    static let ImageTextRecognitionMaxLowerDimensionSize: CGFloat = 750
+    static let DocumentAnalysisAmountMaxIntegerPartDigits: Int = 9
 }

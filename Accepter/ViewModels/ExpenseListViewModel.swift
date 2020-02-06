@@ -32,22 +32,14 @@ class ExpenseListViewModel {
     var isAcceptingManager = false
     var selectedTabIndex = Observable<Int>(0)
     
-    static var counter = 0
-    var classIndex: Int
-    
     init(localStorageService: LocalStorageService, dialogService: DialogService, authorizationService: AuthorizationService) {
         self.localStorageService = localStorageService
         self.dialogService = dialogService
         self.authorizationService = authorizationService
-        
-        classIndex = ExpenseListViewModel.counter
-        ExpenseListViewModel.counter += 1
 
         initProperties()
         registerExpenseStatusObserver()
         loadExpenses()
-        
-        print("ExpenseListViewModel.init - classIndex: \(classIndex)")
     }
     
     func initProperties() {
@@ -59,8 +51,6 @@ class ExpenseListViewModel {
     
     private func registerExpenseStatusObserver() {
         _ = selectedTabIndex.observeNext { (index) in
-
-            print("ExpenseListViewModel.selectedTabIndex - classIndex: \(self.classIndex)")
             
             if self.isToApproveTabSelected {
                 self.filteredExpenseList.replace(with: self.fullExpenseListToApprove)
@@ -99,8 +89,7 @@ class ExpenseListViewModel {
     
     private func registerExpensesChangesNotification(_ expenses: Results<Expense>) -> NotificationToken {
         return expenses.observe { (changes: RealmCollectionChange) in
-            print("Expenses changed: \(changes)")
-            print("ExpenseListViewModel.registerExpensesChangesNotification - classIndex: \(self.classIndex)")
+            
             switch changes {
             case .initial:
                 print("Expenses changed - inital")
@@ -171,7 +160,6 @@ class ExpenseListViewModel {
     private func expenseUpdated(at row: Int) {
         var item: Expense?
 
-        print("ExpenseListViewModel.expenseUpdated - classIndex: \(self.classIndex)")
         if isToApproveTabSelected {
             if fullExpenseListToApprove[row].status == .approved ||
                 fullExpenseListToApprove[row].status == .rejected {

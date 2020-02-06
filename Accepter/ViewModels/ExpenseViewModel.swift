@@ -24,11 +24,12 @@ class ExpenseViewModel {
     let attachmentThumbnails = MutableObservableArray<Data>([])
     var attachmentUrls = MutableObservableArray<URL>([])
     var attachmentThumbnailUrls = [URL]()
+    var attachmentImageDataList = [URL: [ImageTextElement]]()
     
     let didAdd = PassthroughSubject<Expense, Never>()
     let didModify = PassthroughSubject<Expense, Never>()
     let didAddAttachment = PassthroughSubject<Void, Never>()
-    let validationError = PassthroughSubject<(fieldName: ValidationFieldName.Expense, errorMessage: String?), Never>()
+    let validationError = PassthroughSubject<(fieldName: FieldName.Expense, errorMessage: String?), Never>()
     
     var expenseToModify: Expense?
     
@@ -75,7 +76,7 @@ class ExpenseViewModel {
         }
     }
     
-    private func validationIsEmpty(text: String?, fieldName: ValidationFieldName.Expense) -> Bool {
+    private func validationIsEmpty(text: String?, fieldName: FieldName.Expense) -> Bool {
         let msg = self.isNilOrEmpty(text: text) ? "Field cannot be empty" : nil
         self.validationError.send((fieldName: fieldName, errorMessage: msg))
         return msg != nil
@@ -207,6 +208,21 @@ class ExpenseViewModel {
         }
     }
     
+    func saveAttachmentImageData(for url: URL?, data: [ImageTextElement]?) {
+        if let url = url,
+            let data = data {
+            attachmentImageDataList[url] = data
+        }
+    }
+    
+    func loadAttachmentImageData(for url: URL?) -> [ImageTextElement]? {
+        if let url = url {
+            return attachmentImageDataList[url]
+        }
+        
+        return nil
+    }
+    
     private func addNewExpense(title: String, category: String, amount: Double, status: Expense.Status, attachmentNames: [String]) throws {
         let expense = Expense(title: title, category: category, amount: amount, status: status)
         expense.user = authorizationService.user
@@ -240,6 +256,8 @@ class ExpenseViewModel {
         attachmentThumbnails.removeAll()
         attachmentUrls.removeAll()
         attachmentThumbnailUrls.removeAll()
+        attachmentImageDataList.removeAll()
+        status.value = .draft
         
         clearValidation()
     }

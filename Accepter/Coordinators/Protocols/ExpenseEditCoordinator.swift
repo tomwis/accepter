@@ -9,15 +9,18 @@
 import UIKit
 
 protocol ExpenseEditCoordinator: Coordinator {
-    func goToAttachmentPreview(viewModel: ExpenseViewModel, filePath: URL, indexOnList: Int)
+    func goToAttachmentPreview(viewModel: ExpenseViewModel, filePath: URL, indexOnList: Int,
+                               attachmentTextSelectionDelegate: AttachmentTextSelectionDelegate)
 }
 
 extension ExpenseEditCoordinator {
-    func goToAttachmentPreview(viewModel: ExpenseViewModel, filePath: URL, indexOnList: Int) {
+    func goToAttachmentPreview(viewModel: ExpenseViewModel, filePath: URL, indexOnList: Int,
+                               attachmentTextSelectionDelegate: AttachmentTextSelectionDelegate) {
         let vc = AttachmentPreviewViewController.instantiate(fromStoryboard: "AttachmentPreview")
         vc.viewModel = viewModel
         vc.imageUrl = filePath
         vc.attachmentIndex = indexOnList
+        vc.textSelectionDelegate = attachmentTextSelectionDelegate
         
         if let nvc = rootViewController as? UINavigationController {
             nvc.pushViewController(vc, animated: true)
