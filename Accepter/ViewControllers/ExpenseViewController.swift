@@ -25,6 +25,7 @@ class ExpenseViewController: UIViewController, Storyboarded {
     let viewModel = AppDelegate.container.resolve(ExpenseViewModel.self)!
     let dialogService = AppDelegate.container.resolve(DialogService.self)!
     var expense: Expense?
+    var imageFromCamera: UIImage?
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,19 @@ class ExpenseViewController: UIViewController, Storyboarded {
         
         initStyles()
         initBindings()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        initMode()
+    }
+    
+    func initMode() {
+        if let imageFromCamera = imageFromCamera {
+            self.imageFromCamera = nil
+            viewModel.clearFields()
+            viewModel.addAttachment(data: imageFromCamera.jpegData(compressionQuality: 0.8))
+            openAddedAttachmentIfFirst()
+        }
     }
     
     func initStyles() {

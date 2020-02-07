@@ -10,6 +10,8 @@ import UIKit
 
 class MainTabBarController: UITabBarController, Storyboarded, UITabBarControllerDelegate {
 
+    var coordinator: MainCoordinator?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,6 +33,12 @@ class MainTabBarController: UITabBarController, Storyboarded, UITabBarController
     }
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        
+        if !viewController.isKind(of: CameraViewController.self),
+            let index = viewControllers?.firstIndex(of: viewController) {
+            coordinator?.previousTabIndex = index
+        }
+        
         return animateTabTransition(newViewController: viewController)
     }
     
