@@ -16,6 +16,7 @@ class ExpenseListViewController: UIViewController, UITableViewDelegate, Storyboa
     weak var coordinator: ExpenseListCoordinator?
     let viewModel = AppDelegate.container.resolve(ExpenseListViewModel.self)!
     var newExpense: Expense?
+    var expenseToDelete: Expense?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +45,8 @@ class ExpenseListViewController: UIViewController, UITableViewDelegate, Storyboa
                 viewModel.selectedTabIndex.value = 0
             }
             self.newExpense = nil
+        } else if let expenseToDelete = expenseToDelete {
+            viewModel.removeExpense(expenseToDelete)
         }
     }
         

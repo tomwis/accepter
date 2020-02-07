@@ -40,7 +40,42 @@ class ExpenseViewController: UIViewController, Storyboarded {
         initMode()
     }
     
-    func initMode() {
+    override func viewDidDisappear(_ animated: Bool) {
+        viewModel.clearValidation()
+    }
+    
+    @IBAction func saveAsDraftTapped(_ sender: Any) {
+        clearFocus()
+        viewModel.save(sendToApproval: false)
+    }
+    
+    @IBAction func sendToApprovalTapped(_ sender: Any) {
+        clearFocus()
+        viewModel.save(sendToApproval: true)
+    }
+    
+    @IBAction func addAttachmentTapped(_ sender: Any) {
+        
+        let controller = UIAlertController(title: "Add an attachment", message: nil, preferredStyle: .actionSheet)
+        
+        let action1 = UIAlertAction(title: "Take a photo", style: .default) { (_) in
+            if(ImagePickerHelper.isCameraAccessAuthorized()) {
+                ImagePickerHelper.openImagePicker(viewController: self, delegate: self, sourceType: .camera)
+            }
+        }
+        let action2 = UIAlertAction(title: "From photo library", style: .default) { (_) in
+            ImagePickerHelper.openImagePicker(viewController: self, delegate: self, sourceType: .photoLibrary) }
+        controller.addAction(action1)
+        controller.addAction(action2)
+        
+        present(controller, animated: true, completion: nil)
+    }
+    
+    @IBAction func deleteTapped(_ sender: Any) {
+        viewModel.deleteExpense()
+    }
+    
+    private func initMode() {
         if let imageFromCamera = imageFromCamera {
             self.imageFromCamera = nil
             viewModel.clearFields()
@@ -49,7 +84,7 @@ class ExpenseViewController: UIViewController, Storyboarded {
         }
     }
     
-    func initStyles() {
+    private func initStyles() {
         titleField.field.placeholder = "Expense title"
         categoryField.field.placeholder = "Category"
         amountField.field.placeholder = "Amount"
@@ -66,7 +101,7 @@ class ExpenseViewController: UIViewController, Storyboarded {
         attachmentCollectionView.register(AttachmentThumbnailCell.self, forCellWithReuseIdentifier: AttachmentThumbnailCell.reuseId)
     }
     
-    func initBindings() {        
+    private func initBindings() {
         viewModel.title.bidirectionalBind(to: titleField.field.reactive.text)
         viewModel.category.bidirectionalBind(to: categoryField.field.reactive.text)
         viewModel.amount.bidirectionalBind(to: amountField.field.reactive.text)
@@ -97,6 +132,12 @@ class ExpenseViewController: UIViewController, Storyboarded {
                 coordinator.goBackToRoot()
             }
         }
+        
+        _ = viewModel.doDeleteExpense.observeNext(with: { (expense) in
+            if let coordinator = self.coordinator as? ExpenseListCoordinator {
+                coordinator.goBackToRoot(expenseToDelete: expense)
+            }
+        })
         
         _ = viewModel.validationError.observeNext(with: { (error) in
             
@@ -142,7 +183,7 @@ class ExpenseViewController: UIViewController, Storyboarded {
         c.goToAttachmentPreview(viewModel: viewModel, filePath: fileUrl, indexOnList: index, attachmentTextSelectionDelegate: self)
     }
     
-    func clearFocus() {
+    private func clearFocus() {
         if titleField.field.canResignFirstResponder {
             titleField.field.resignFirstResponder()
         }
@@ -154,37 +195,6 @@ class ExpenseViewController: UIViewController, Storyboarded {
         if amountField.field.canResignFirstResponder {
             amountField.field.resignFirstResponder()
         }
-    }
-    
-    @IBAction func saveAsDraftTapped(_ sender: Any) {
-        clearFocus()
-        viewModel.save(sendToApproval: false)
-    }
-    
-    @IBAction func sendToApprovalTapped(_ sender: Any) {
-        clearFocus()
-        viewModel.save(sendToApproval: true)
-    }
-    
-    @IBAction func addAttachmentTapped(_ sender: Any) {
-        
-        let controller = UIAlertController(title: "Add an attachment", message: nil, preferredStyle: .actionSheet)
-        
-        let action1 = UIAlertAction(title: "Take a photo", style: .default) { (_) in
-            if(ImagePickerHelper.isCameraAccessAuthorized()) {
-                ImagePickerHelper.openImagePicker(viewController: self, delegate: self, sourceType: .camera)
-            }
-        }
-        let action2 = UIAlertAction(title: "From photo library", style: .default) { (_) in
-            ImagePickerHelper.openImagePicker(viewController: self, delegate: self, sourceType: .photoLibrary) }
-        controller.addAction(action1)
-        controller.addAction(action2)
-        
-        present(controller, animated: true, completion: nil)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        viewModel.clearValidation()
     }
     
     private func openAddedAttachmentIfFirst() {

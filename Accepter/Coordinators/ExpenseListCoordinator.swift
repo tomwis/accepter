@@ -38,4 +38,12 @@ class ExpenseListCoordinator: ExpenseEditCoordinator {
     func goBackToRoot() {
         navigationController.popToRootViewController(animated: true)
     }
+    
+    func goBackToRoot(expenseToDelete: Expense) {
+        navigationController.popToRootViewController(animated: true)
+        
+        if let vc = navigationController.topViewController as? ExpenseListViewController {
+            vc.expenseToDelete = expenseToDelete
+        }
+    }
 }

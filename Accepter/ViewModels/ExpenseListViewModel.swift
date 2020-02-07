@@ -184,6 +184,12 @@ class ExpenseListViewModel {
         }
     }
     
+    func removeExpense(_ expense: Expense) {
+        if let index = filteredExpenseList.collection.firstIndex(of: expense) {
+            removeExpense(at: index)
+        }
+    }
+    
     func removeExpense(at row: Int) {
         
         dialogService.hide()
