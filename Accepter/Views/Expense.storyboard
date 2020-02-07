@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Expense View Controller-->
+        <!--Title-->
         <scene sceneID="Rdc-2I-bIp">
             <objects>
                 <viewController storyboardIdentifier="ExpenseViewController" id="f4b-a2-USc" customClass="ExpenseViewController" customModule="Accepter" customModuleProvider="target" sceneMemberID="viewController">
@@ -152,6 +152,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cBc-Xs-loO"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="Dzt-PB-84a">
+                        <barButtonItem key="rightBarButtonItem" image="trash" catalog="system" id="ugE-8W-wD6">
+                            <connections>
+                                <action selector="deleteTapped:" destination="f4b-a2-USc" id="vQI-ep-BgT"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="addAttachmentButton" destination="Q4z-Hb-4kV" id="ThA-ok-Iua"/>
                         <outlet property="amountField" destination="OA9-2g-r72" id="vZ5-jL-8JQ"/>
@@ -170,5 +177,6 @@
     </scenes>
     <resources>
         <image name="plus" catalog="system" width="64" height="56"/>
+        <image name="trash" catalog="system" width="60" height="64"/>
     </resources>
 </document>

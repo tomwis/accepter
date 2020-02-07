@@ -28,6 +28,7 @@ class ExpenseViewModel {
     
     let didAdd = PassthroughSubject<Expense, Never>()
     let didModify = PassthroughSubject<Expense, Never>()
+    let doDeleteExpense = PassthroughSubject<Expense, Never>()
     let didAddAttachment = PassthroughSubject<Void, Never>()
     let validationError = PassthroughSubject<(fieldName: FieldName.Expense, errorMessage: String?), Never>()
     
@@ -247,6 +248,15 @@ class ExpenseViewModel {
         })
         
         didModify.send(expenseToModify)
+    }
+    
+    func deleteExpense() {
+        clearFields()
+        
+        if let expenseToModify = expenseToModify,
+            expenseToModify.status == .draft {
+            doDeleteExpense.send(expenseToModify)
+        }
     }
     
     func clearFields() {
