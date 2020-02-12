@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Home View Controller-->
+        <!--My Summary-->
         <scene sceneID="0zO-p8-eby">
             <objects>
                 <viewController storyboardIdentifier="HomeViewController" id="8cL-cu-o4M" customClass="HomeViewController" customModule="Accepter" customModuleProvider="target" sceneMemberID="viewController">
@@ -197,7 +197,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="evn-vZ-Tax"/>
                     </view>
-                    <navigationItem key="navigationItem" id="iRP-Ac-XT4"/>
+                    <navigationItem key="navigationItem" title="My Summary" id="iRP-Ac-XT4"/>
                     <connections>
                         <outlet property="newlyApprovedLabel" destination="7IV-v8-hba" id="6MT-1A-RUQ"/>
                         <outlet property="newlyApprovedView" destination="83f-Hg-AxD" id="P0m-dO-gw7"/>
@@ -220,7 +220,7 @@
         <image name="questionmark.circle" catalog="system" width="64" height="60"/>
         <image name="xmark.circle" catalog="system" width="64" height="60"/>
         <namedColor name="DashboardItemBackground">
-            <color red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.97600001096725464" green="0.97600001096725464" blue="0.97600001096725464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

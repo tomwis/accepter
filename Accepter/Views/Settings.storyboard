@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Settings View Controller-->
+        <!--Settings-->
         <scene sceneID="krR-Eg-1HQ">
             <objects>
                 <viewController storyboardIdentifier="SettingsViewController" id="6p9-HU-g7O" customClass="SettingsViewController" customModule="Accepter" customModuleProvider="target" sceneMemberID="viewController">
@@ -72,6 +72,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4ZP-xy-5yR"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Settings" id="ob7-Lk-97Z"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="userDataLabel" destination="O30-bv-Kts" id="xF8-If-7Qx"/>
