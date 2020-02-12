@@ -33,6 +33,7 @@ class ExpenseViewController: UIViewController, Storyboarded, TabBarChildControll
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = expense == nil ? "New expense" : "Edit expense"        
         viewModel.initExpense(expense)
         
         initStyles()
