@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2212FA7E23BF5D1E00515D99 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2212FA7D23BF5D1E00515D99 /* Home.storyboard */; };
 		2212FA8023BF5D7400515D99 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2212FA7F23BF5D7400515D99 /* HomeViewController.swift */; };
+		2224437523ED9C09004793B6 /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2224437423ED9C09004793B6 /* CameraService.swift */; };
+		2224437823EDA8B0004793B6 /* VideoPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2224437723EDA8B0004793B6 /* VideoPreviewView.swift */; };
 		222AC6D523D6E35600EF7760 /* ValidationField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 222AC6D423D6E35600EF7760 /* ValidationField.xib */; };
 		222AC6D723D6E3D900EF7760 /* ValidationField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222AC6D623D6E3D900EF7760 /* ValidationField.swift */; };
 		222AC6DA23D6EE0200EF7760 /* FieldName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222AC6D923D6EE0200EF7760 /* FieldName.swift */; };
@@ -70,6 +72,8 @@
 		22E8E6C723EB03710069371C /* DocumentAnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E8E6C623EB03710069371C /* DocumentAnalysisService.swift */; };
 		22E8E6C923EB0FC90069371C /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E8E6C823EB0FC90069371C /* CGRect.swift */; };
 		22E8E6CB23EB11230069371C /* ImageTextElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E8E6CA23EB11230069371C /* ImageTextElement.swift */; };
+		22EB6B3523F2998A00400041 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22EB6B3423F2998A00400041 /* Camera.storyboard */; };
+		22EB6B3723F2CB1900400041 /* TabBarChildController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EB6B3623F2CB1900400041 /* TabBarChildController.swift */; };
 		22F86E0923CCA102004F62C4 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F86E0823CCA102004F62C4 /* LoginViewModel.swift */; };
 		22F86E0C23CCAE7A004F62C4 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F86E0B23CCAE7A004F62C4 /* Coordinator.swift */; };
 		22F86E0E23CCB098004F62C4 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F86E0D23CCB098004F62C4 /* Storyboarded.swift */; };
@@ -94,6 +98,8 @@
 /* Begin PBXFileReference section */
 		2212FA7D23BF5D1E00515D99 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		2212FA7F23BF5D7400515D99 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		2224437423ED9C09004793B6 /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
+		2224437723EDA8B0004793B6 /* VideoPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPreviewView.swift; sourceTree = "<group>"; };
 		222AC6D423D6E35600EF7760 /* ValidationField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ValidationField.xib; sourceTree = "<group>"; };
 		222AC6D623D6E3D900EF7760 /* ValidationField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationField.swift; sourceTree = "<group>"; };
 		222AC6D923D6EE0200EF7760 /* FieldName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldName.swift; sourceTree = "<group>"; };
@@ -156,6 +162,8 @@
 		22E8E6C623EB03710069371C /* DocumentAnalysisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentAnalysisService.swift; sourceTree = "<group>"; };
 		22E8E6C823EB0FC90069371C /* CGRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		22E8E6CA23EB11230069371C /* ImageTextElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTextElement.swift; sourceTree = "<group>"; };
+		22EB6B3423F2998A00400041 /* Camera.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
+		22EB6B3623F2CB1900400041 /* TabBarChildController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarChildController.swift; sourceTree = "<group>"; };
 		22F86E0823CCA102004F62C4 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		22F86E0B23CCAE7A004F62C4 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		22F86E0D23CCB098004F62C4 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
@@ -178,6 +186,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2224437623EDA895004793B6 /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				2224437723EDA8B0004793B6 /* VideoPreviewView.swift */,
+			);
+			path = Controls;
+			sourceTree = "<group>";
+		};
 		222AC6D323D6E32300EF7760 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
@@ -221,6 +237,7 @@
 			children = (
 				2264885823DB2ED100B6852D /* WebRequestService.swift */,
 				22E8E6C223EACC390069371C /* AttachmentTextSelectionDelegate.swift */,
+				22EB6B3623F2CB1900400041 /* TabBarChildController.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -284,6 +301,7 @@
 		22AC17FB23AA680600663D66 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2224437623EDA895004793B6 /* Controls */,
 				229ADB0A23E97AC7000854F5 /* Layers */,
 				2258BFA223E2F1370011E5EF /* Cells */,
 				22D07D5923D1D1AE00B1FADE /* Expense.storyboard */,
@@ -293,6 +311,7 @@
 				22D07D5723D1D14100B1FADE /* Main.storyboard */,
 				22D07D5F23D1D21700B1FADE /* Settings.storyboard */,
 				22E0B88C23E43AE40063C1A9 /* AttachmentPreview.storyboard */,
+				22EB6B3423F2998A00400041 /* Camera.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -370,6 +389,7 @@
 				2255DF5623E8623C00B44458 /* TextRecognitionService.swift */,
 				22E8E6C623EB03710069371C /* DocumentAnalysisService.swift */,
 				22B3A4F423EC09D900580C19 /* ImageService.swift */,
+				2224437423ED9C09004793B6 /* CameraService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -469,6 +489,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22AC17FF23AA682300663D66 /* Login.storyboard in Resources */,
+				22EB6B3523F2998A00400041 /* Camera.storyboard in Resources */,
 				22D70A6023D5CCD90031E0E5 /* ExpenseList.storyboard in Resources */,
 				222AC6D523D6E35600EF7760 /* ValidationField.xib in Resources */,
 				22D07D5823D1D14100B1FADE /* Main.storyboard in Resources */,
@@ -546,9 +567,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2224437523ED9C09004793B6 /* CameraService.swift in Sources */,
 				22D70A6A23D5F2C40031E0E5 /* Expense.swift in Sources */,
 				2212FA8023BF5D7400515D99 /* HomeViewController.swift in Sources */,
 				223FB71323DEF2C000D78BEF /* LoginResponse.swift in Sources */,
+				22EB6B3723F2CB1900400041 /* TabBarChildController.swift in Sources */,
 				22D07D6823D1D59C00B1FADE /* MainCoordinator.swift in Sources */,
 				2255DF5723E8623C00B44458 /* TextRecognitionService.swift in Sources */,
 				22D07D6223D1D33E00B1FADE /* MainTabBarController.swift in Sources */,
@@ -566,6 +589,7 @@
 				22B3A4FD23EC58C800580C19 /* CameraCoordinator.swift in Sources */,
 				2258BFA123E2D13D0011E5EF /* FileService.swift in Sources */,
 				22F86E1023CCB428004F62C4 /* HomeCoordinator.swift in Sources */,
+				2224437823EDA8B0004793B6 /* VideoPreviewView.swift in Sources */,
 				22D07D6423D1D4FC00B1FADE /* ExpenseCoordinator.swift in Sources */,
 				222AC6DA23D6EE0200EF7760 /* FieldName.swift in Sources */,
 				2264885423DAFF8500B6852D /* UISingleTouchGestureRecognizer.swift in Sources */,

@@ -47,6 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private static func initializeIocContainer() {
         container.register(DialogService.self) { _ in DialogService() }
+        container.register(DocumentAnalysisService.self) { _ in DocumentAnalysisService() }
 //        container.register(WebRequestService.self) { _ in UrlSessionWebRequestService() }
 //            .initCompleted { (resolver, object) in
 //                var o = object as! WebRequestService
@@ -63,6 +64,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         container.autoregister(UserService.self, initializer: UserService.init)
         container.autoregister(FileService.self, initializer: FileService.init)
         container.autoregister(ImageService.self, initializer: ImageService.init)
+        container.autoregister(CameraService.self, initializer: CameraService.init)
+        container.autoregister(TextRecognitionService.self, initializer: TextRecognitionService.init)
         container.autoregister(LoginViewModel.self, initializer: LoginViewModel.init)
         container.autoregister(HomeViewModel.self, initializer: HomeViewModel.init)
         container.autoregister(ExpenseViewModel.self, initializer: ExpenseViewModel.init)

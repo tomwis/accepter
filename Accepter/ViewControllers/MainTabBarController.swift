@@ -22,6 +22,8 @@ class MainTabBarController: UITabBarController, Storyboarded, UITabBarController
         willSet {
             if let viewControllers = viewControllers {
                 _ = animateTabTransition(newViewController: viewControllers[newValue])
+
+                updateUI(viewController: viewControllers[newValue])
             }
         }
     }
@@ -39,7 +41,18 @@ class MainTabBarController: UITabBarController, Storyboarded, UITabBarController
             coordinator?.previousTabIndex = index
         }
         
+        updateUI(viewController: viewController)
+        
         return animateTabTransition(newViewController: viewController)
+    }
+    
+    private func updateUI(viewController: UIViewController) {
+        if let child = viewController as? TabBarChildController {
+            tabBar.isHidden = !child.showTabBar
+        } else if let navVc = viewController as? UINavigationController,
+            let child = navVc.topViewController as? TabBarChildController {
+            tabBar.isHidden = !child.showTabBar
+        }
     }
     
     private func animateTabTransition(newViewController: UIViewController) -> Bool {

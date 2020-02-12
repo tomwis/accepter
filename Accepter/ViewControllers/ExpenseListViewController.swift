@@ -9,7 +9,7 @@
 import UIKit
 import Bond
 
-class ExpenseListViewController: UIViewController, UITableViewDelegate, Storyboarded {
+class ExpenseListViewController: UIViewController, UITableViewDelegate, Storyboarded, TabBarChildController {
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
@@ -17,6 +17,8 @@ class ExpenseListViewController: UIViewController, UITableViewDelegate, Storyboa
     let viewModel = AppDelegate.container.resolve(ExpenseListViewModel.self)!
     var newExpense: Expense?
     var expenseToDelete: Expense?
+    
+    var showTabBar: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()

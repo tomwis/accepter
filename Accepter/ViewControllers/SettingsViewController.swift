@@ -8,11 +8,13 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController, Storyboarded {
+class SettingsViewController: UIViewController, Storyboarded, TabBarChildController {
     
     @IBOutlet weak var userDataLabel: UILabel!
     weak var coordinator: SettingsCoordinator?
     let viewModel = AppDelegate.container.resolve(SettingsViewModel.self)!
+    
+    var showTabBar: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()

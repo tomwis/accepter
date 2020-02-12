@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, Storyboarded {
+class HomeViewController: UIViewController, Storyboarded, TabBarChildController {
     
     @IBOutlet weak var toApproveView: UIView!
     @IBOutlet weak var toSendView: UIView!
@@ -22,6 +22,8 @@ class HomeViewController: UIViewController, Storyboarded {
     weak var coordinator: HomeCoordinator?
     var isAuthorized = false
     var viewModel = AppDelegate.container.resolve(HomeViewModel.self)!
+    
+    var showTabBar: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -97,7 +97,7 @@ class ExpenseListViewModel {
             
             switch changes {
             case .initial:
-                print("Expenses changed - inital")
+//                print("Expenses changed - inital")
                 break
             case .update(let elements, let deletions, let insertions, let modifications):
                 print("Expenses changed - update: deletions: \(deletions), insertions: \(insertions), modifications: \(modifications)")
