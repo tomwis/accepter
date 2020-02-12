@@ -27,27 +27,25 @@ class CameraService: NSObject {
         self.dialogService = dialogService
     }
     
-    func isCameraAccessAuthorized() -> Bool {
+    func isCameraAccessAuthorized(_ completion: @escaping (Bool) -> Void) {
         let cameraPermission = AVCaptureDevice.authorizationStatus(for: .video)
         
         switch cameraPermission {
         case .notDetermined:
-            requestPermission()
-            return false
+            requestPermission(completion)
         case .authorized:
-            return true
+            completion(true)
         case .restricted, .denied:
             dialogService.show(title: "Camera access", body: "Access to camera was denied. Open settings to allow camera access.", buttonTitle: "Settings", buttonHandler: openSettings, displayTimeInSeconds: 10)
-            return false
+            completion(false)
         default:
-            return false
+            completion(false)
         }
     }
     
-    func requestPermission() {
+    func requestPermission(_ completion: @escaping (Bool) -> Void) {
         AVCaptureDevice.requestAccess(for: .video) { (accessGranted) in
-            if accessGranted {
-            }
+            completion(accessGranted)
         }
     }
     

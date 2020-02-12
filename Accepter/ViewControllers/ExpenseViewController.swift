@@ -62,8 +62,10 @@ class ExpenseViewController: UIViewController, Storyboarded, TabBarChildControll
         let controller = UIAlertController(title: "Add an attachment", message: nil, preferredStyle: .actionSheet)
         
         let action1 = UIAlertAction(title: "Take a photo", style: .default) { (_) in
-            if(self.cameraService.isCameraAccessAuthorized()) {
-                _ = ImagePickerHelper.openImagePicker(viewController: self, delegate: self, sourceType: .camera)
+            self.cameraService.isCameraAccessAuthorized { accessGranted in
+                if accessGranted {
+                    _ = ImagePickerHelper.openImagePicker(viewController: self, delegate: self, sourceType: .camera)
+                }
             }
         }
         let action2 = UIAlertAction(title: "From photo library", style: .default) { (_) in

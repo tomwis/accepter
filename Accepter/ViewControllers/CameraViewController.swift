@@ -48,8 +48,10 @@ class CameraViewController: UIViewController, Storyboarded, TabBarChildControlle
             videoPreviewView.cameraButtonTapped = cameraButtonTapped
             initStyles()
             
-            if cameraService.isCameraAccessAuthorized() {
-                updateCameraMode()
+            cameraService.isCameraAccessAuthorized { accessGranted in
+                if accessGranted {
+                    self.updateCameraMode()
+                }
             }
         }
     }
