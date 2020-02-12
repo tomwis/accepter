@@ -61,7 +61,7 @@ class ExpenseViewController: UIViewController, Storyboarded, TabBarChildControll
     @IBAction func addAttachmentTapped(_ sender: Any) {
         
         let controller = UIAlertController(title: "Add an attachment", message: nil, preferredStyle: .actionSheet)
-        
+
         let action1 = UIAlertAction(title: "Take a photo", style: .default) { (_) in
             self.cameraService.isCameraAccessAuthorized { accessGranted in
                 if accessGranted {
@@ -71,8 +71,11 @@ class ExpenseViewController: UIViewController, Storyboarded, TabBarChildControll
         }
         let action2 = UIAlertAction(title: "From photo library", style: .default) { (_) in
             _ = ImagePickerHelper.openImagePicker(viewController: self, delegate: self, sourceType: .photoLibrary) }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in controller.dismiss(animated: true, completion: nil)})
+        
         controller.addAction(action1)
         controller.addAction(action2)
+        controller.addAction(cancelAction)
         
         present(controller, animated: true, completion: nil)
     }
