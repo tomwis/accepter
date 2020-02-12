@@ -20,7 +20,10 @@ class ImagePickerHelper {
             imagePickerController.delegate = delegate
             imagePickerController.sourceType = sourceType
             imagePickerController.allowsEditing = false
-            imagePickerController.cameraOverlayView = overlayView
+            
+            if sourceType == .camera {
+                imagePickerController.cameraOverlayView = overlayView
+            }
             viewController.present(imagePickerController, animated: animate)
             
             return imagePickerController
