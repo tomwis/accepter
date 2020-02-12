@@ -32,7 +32,7 @@ class MainCoordinator: Coordinator {
                                                           title: "New Expense",
                                                           iconName: "plus")
         
-        let cameraCoordinator = setupTabChildCoordinator(coordinator: CameraCoordinator(navigationController: UINavigationController()),
+        let cameraCoordinator = setupTabChildCoordinator(coordinator: CameraCoordinator(rootViewController: UIViewController()),
                                                           title: "Camera",
                                                           iconName: "Camera",
                                                           exposed: true)
@@ -94,7 +94,7 @@ class MainCoordinator: Coordinator {
         previousTabIndex = 1
     }
     
-    func goToNewExpense(image: UIImage) {
+    func goToNewExpense(image: UIImage?) {
         
         if let navVc = childCoordinators[1].rootViewController as? UINavigationController,
             let vc = navVc.topViewController as? ExpenseViewController {

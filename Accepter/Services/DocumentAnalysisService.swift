@@ -14,6 +14,8 @@ class DocumentAnalysisService {
     var numberElements = [ImageTextElement]()
     var textElements = [ImageTextElement]()
     
+    init() { }
+    
     init(regions: [((CGPoint, CGPoint, CGPoint, CGPoint), String)], imageSize: CGSize) {
         
         for ((bottomLeft, bottomRight, topRight, topLeft), text) in regions {
@@ -29,18 +31,30 @@ class DocumentAnalysisService {
         analizeElements()
     }
     
+    func addRegion(_ region: ((CGPoint, CGPoint, CGPoint, CGPoint), String)) {
+        imageTextElements.append(ImageTextElement(topLeftPercent: region.0.3, topRightPercent: region.0.2, bottomLeftPercent: region.0.0, bottomRightPercent: region.0.1, imageSize: CGSize(), text: region.1))
+        
+        analizeElement(imageTextElements.last)
+    }
+    
     func getDataForSaving() -> [ImageTextElement] {
         return imageTextElements
     }
     
     private func analizeElements() {
         for element in imageTextElements {
-            if let number = textToNumber(text: element.text) {
-                element.numberValue = number
-                numberElements.append(element)
-            } else {
-                textElements.append(element)
-            }
+            analizeElement(element)
+        }
+    }
+    
+    private func analizeElement(_ element: ImageTextElement?) {
+        guard let element = element else { return }
+        
+        if let number = textToNumber(text: element.text) {
+            element.numberValue = number
+            numberElements.append(element)
+        } else {
+            textElements.append(element)
         }
     }
     

@@ -13,17 +13,17 @@ class CameraCoordinator: Coordinator {
     var rootViewController: UIViewController
     weak var parentCoordinator: Coordinator?
     
-    init(navigationController: UINavigationController) {
-        rootViewController = navigationController
+    init(rootViewController: UIViewController) {
+        self.rootViewController = rootViewController
     }
-
+    
     func start() {
-        let vc = CameraViewController()
+        let vc = CameraViewController.instantiate(fromStoryboard: "Camera")
         vc.coordinator = self
         rootViewController = vc
     }
     
-    func goToNewExpense(image: UIImage) {
+    func goToNewExpense(image: UIImage?) {
         if let parent = parentCoordinator as? MainCoordinator {
             parent.goToNewExpense(image: image)
         }

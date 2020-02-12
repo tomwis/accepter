@@ -14,4 +14,5 @@ struct Constants {
     static let AttachmentsThumbnailsFolderName = "attachments_thumbnails"
     static let ImageTextRecognitionMaxLowerDimensionSize: CGFloat = 750
     static let DocumentAnalysisAmountMaxIntegerPartDigits: Int = 9
+    static let ExpenseFieldFromCameraKeyPrefix = "ExpenseFieldFromCamera"
 }

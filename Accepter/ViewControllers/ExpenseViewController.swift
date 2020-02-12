@@ -10,7 +10,7 @@ import UIKit
 import Bond
 import ReactiveKit
 
-class ExpenseViewController: UIViewController, Storyboarded {
+class ExpenseViewController: UIViewController, Storyboarded, TabBarChildController {
     
     @IBOutlet weak var titleField: ValidationField!
     @IBOutlet weak var categoryField: ValidationField!
@@ -24,8 +24,11 @@ class ExpenseViewController: UIViewController, Storyboarded {
     weak var coordinator: Coordinator?
     let viewModel = AppDelegate.container.resolve(ExpenseViewModel.self)!
     let dialogService = AppDelegate.container.resolve(DialogService.self)!
+    let cameraService = AppDelegate.container.resolve(CameraService.self)!
     var expense: Expense?
     var imageFromCamera: UIImage?
+    
+    var showTabBar: Bool = true
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,12 +62,12 @@ class ExpenseViewController: UIViewController, Storyboarded {
         let controller = UIAlertController(title: "Add an attachment", message: nil, preferredStyle: .actionSheet)
         
         let action1 = UIAlertAction(title: "Take a photo", style: .default) { (_) in
-            if(ImagePickerHelper.isCameraAccessAuthorized()) {
-                ImagePickerHelper.openImagePicker(viewController: self, delegate: self, sourceType: .camera)
+            if(self.cameraService.isCameraAccessAuthorized()) {
+                _ = ImagePickerHelper.openImagePicker(viewController: self, delegate: self, sourceType: .camera)
             }
         }
         let action2 = UIAlertAction(title: "From photo library", style: .default) { (_) in
-            ImagePickerHelper.openImagePicker(viewController: self, delegate: self, sourceType: .photoLibrary) }
+            _ = ImagePickerHelper.openImagePicker(viewController: self, delegate: self, sourceType: .photoLibrary) }
         controller.addAction(action1)
         controller.addAction(action2)
         
@@ -81,6 +84,23 @@ class ExpenseViewController: UIViewController, Storyboarded {
             viewModel.clearFields()
             viewModel.addAttachment(data: imageFromCamera.jpegData(compressionQuality: 0.8))
             openAddedAttachmentIfFirst()
+        } else {
+            let defaults = UserDefaults.standard
+            let prefix = Constants.ExpenseFieldFromCameraKeyPrefix
+            
+            if let title = defaults.string(forKey: "\(prefix)\(FieldName.Expense.title)") {
+                viewModel.title.value = title
+            }
+            if let category = defaults.string(forKey: "\(prefix)\(FieldName.Expense.category)") {
+                viewModel.category.value = category
+            }
+            if let amount = defaults.string(forKey: "\(prefix)\(FieldName.Expense.amount)") {
+                viewModel.amount.value = amount
+            }
+            
+            defaults.removeObject(forKey: "\(prefix)\(FieldName.Expense.title)")
+            defaults.removeObject(forKey: "\(prefix)\(FieldName.Expense.category)")
+            defaults.removeObject(forKey: "\(prefix)\(FieldName.Expense.amount)")
         }
     }
     

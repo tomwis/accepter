@@ -8,6 +8,7 @@
 
 import UIKit
 import Vision
+import AVFoundation
 
 class TextRecognitionService {
     var requests = [String: VNRecognizeTextRequest]()
@@ -71,5 +72,48 @@ class TextRecognitionService {
         }
         
         progressHandler(fractionCompleted)
+    }
+
+    func findTextOnImageInRealtime(sampleBuffer: CMSampleBuffer, regionOfInterest: CGRect?, orientation: CGImagePropertyOrientation, _ completionHandler: @escaping ([((CGPoint, CGPoint, CGPoint, CGPoint), String)]) -> Void) {
+                
+        if let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
+
+            let request = VNRecognizeTextRequest { (request, error) in self.findTextOnImageInRealtimeCompleted(request, error, completionHandler) }
+            request.recognitionLevel = .accurate
+            request.usesLanguageCorrection = true
+            request.revision = VNRecognizeTextRequestRevision1
+            
+            if let regionOfInterest = regionOfInterest {
+                request.regionOfInterest = regionOfInterest
+            }
+            
+            let requestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: orientation, options: [:])
+            do {
+                try requestHandler.perform([request])
+            } catch {
+                print("findTextOnImageInRealtime error: \(error)")
+            }
+        }
+    }
+        
+    private func findTextOnImageInRealtimeCompleted(_ request: VNRequest, _ error: Error?, _ completionHandler: @escaping ([((CGPoint, CGPoint, CGPoint, CGPoint), String)]) -> Void) {
+        guard let results = request.results as? [VNRecognizedTextObservation] else {
+            return
+        }
+        
+        var boundingBoxes = [((CGPoint, CGPoint, CGPoint, CGPoint), String)]()
+        for visionResult in results {
+            let maxCandidates = 1
+            guard let candidate = visionResult.topCandidates(maxCandidates).first else {
+                continue
+            }
+            
+//            print("candidate: \(candidate.string)")
+            
+            let bounds = (visionResult.bottomLeft, visionResult.bottomRight, visionResult.topRight, visionResult.topLeft)
+            boundingBoxes.append((bounds, candidate.string))
+        }
+        
+        completionHandler(boundingBoxes)
     }
 }

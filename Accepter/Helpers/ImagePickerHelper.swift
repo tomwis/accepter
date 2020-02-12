@@ -13,14 +13,17 @@ class ImagePickerHelper {
     static let dialogService = DialogService()
     
     static func openImagePicker(viewController: UIViewController, delegate: UIImagePickerControllerDelegate & UINavigationControllerDelegate,
-                                sourceType: UIImagePickerController.SourceType) {
+                                sourceType: UIImagePickerController.SourceType, animate: Bool = true, overlayView: UIView? = nil) -> UIImagePickerController? {
         
         if UIImagePickerController.isSourceTypeAvailable(sourceType) {
             let imagePickerController = UIImagePickerController()
             imagePickerController.delegate = delegate
             imagePickerController.sourceType = sourceType
             imagePickerController.allowsEditing = false
-            viewController.present(imagePickerController, animated: true)
+            imagePickerController.cameraOverlayView = overlayView
+            viewController.present(imagePickerController, animated: animate)
+            
+            return imagePickerController
         } else {
             switch sourceType {
             case .camera:
@@ -31,26 +34,7 @@ class ImagePickerHelper {
                 break
             }
         }
-    }
-    
-    static func isCameraAccessAuthorized() -> Bool {
-        let cameraPermission = AVCaptureDevice.authorizationStatus(for: .video)
         
-        switch cameraPermission {
-        case .notDetermined, .authorized:
-            return true
-        case .restricted, .denied:
-            dialogService.show(title: "Camera access", body: "Access to camera was denied. Open settings to allow camera access.", buttonTitle: "Settings", buttonHandler: openSettings, displayTimeInSeconds: 10)
-            return false
-        default:
-            return false
-        }
-    }
-    
-    static func openSettings() {
-        if let settingsUrl = URL(string: UIApplication.openSettingsURLString),
-            UIApplication.shared.canOpenURL(settingsUrl) {
-            UIApplication.shared.open(settingsUrl, options: [:], completionHandler: nil)
-        }
+        return nil
     }
 }
