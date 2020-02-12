@@ -209,17 +209,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2224437623EDA895004793B6 /* Controls */ = {
-			isa = PBXGroup;
-			children = (
-				2224437723EDA8B0004793B6 /* VideoPreviewView.swift */,
-			);
-			path = Controls;
-			sourceTree = "<group>";
-		};
 		222AC6D323D6E32300EF7760 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				2224437723EDA8B0004793B6 /* VideoPreviewView.swift */,
 				222AC6D423D6E35600EF7760 /* ValidationField.xib */,
 				222AC6D623D6E3D900EF7760 /* ValidationField.swift */,
 				2264884E23DAE13000B6852D /* DashboardSummaryItem.xib */,
@@ -326,7 +319,6 @@
 		22AC17FB23AA680600663D66 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				2224437623EDA895004793B6 /* Controls */,
 				229ADB0A23E97AC7000854F5 /* Layers */,
 				2258BFA223E2F1370011E5EF /* Cells */,
 				22D07D5923D1D1AE00B1FADE /* Expense.storyboard */,

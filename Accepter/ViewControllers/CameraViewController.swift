@@ -19,8 +19,6 @@ class CameraViewController: UIViewController, Storyboarded, TabBarChildControlle
     @IBOutlet weak var valuePreviewView: UIView!
     @IBOutlet weak var switchModeButton: UIButton!
     @IBOutlet weak var cameraButtonContainer: UIStackView!
-    @IBOutlet weak var topMenuView: UIView!
-    @IBOutlet weak var bottomMenuView: UIView!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var acceptButton: UIButton!
     
@@ -42,15 +40,18 @@ class CameraViewController: UIViewController, Storyboarded, TabBarChildControlle
     var showTabBar: Bool = false
     
     override func viewWillAppear(_ animated: Bool) {
-        if !isImagePickerDismissing {            
-            cameraService.setupCamera(videoPreviewView, delegate: self)
+        if !isImagePickerDismissing {
             cameraButtonContainer.addArrangedSubview(videoPreviewView.cameraButton)
             videoPreviewView.cameraButtonTapped = cameraButtonTapped
             initStyles()
             
-            cameraService.isCameraAccessAuthorized { accessGranted in
-                if accessGranted {
-                    self.updateCameraMode()
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                cameraService.setupCamera(videoPreviewView, delegate: self)
+                
+                cameraService.isCameraAccessAuthorized { accessGranted in
+                    if accessGranted {
+                        self.updateCameraMode()
+                    }
                 }
             }
         }
@@ -102,19 +103,8 @@ class CameraViewController: UIViewController, Storyboarded, TabBarChildControlle
     }
     
     private func updateModeUI() {
-        if isValueScanningModeSelected {
-            switchModeButton.setImage(UIImage(systemName: "doc.text.viewfinder", withConfiguration: switchModeButtonConfig), for: .normal)
-            valuePreviewView.isHidden = false
-            videoPreviewView.isHidden = false
-            topMenuView.isHidden = false
-            bottomMenuView.isHidden = false
-        } else {
-            switchModeButton.setImage(UIImage(systemName: "viewfinder", withConfiguration: switchModeButtonConfig), for: .normal)
-            valuePreviewView.isHidden = true
-            videoPreviewView.isHidden = true
-            topMenuView.isHidden = true
-            bottomMenuView.isHidden = true
-        }
+        let iconName = isValueScanningModeSelected ? "doc.text.viewfinder" : "viewfinder"
+        switchModeButton.setImage(UIImage(systemName: iconName, withConfiguration: switchModeButtonConfig), for: .normal)
     }
     
     private func updateCameraMode() {

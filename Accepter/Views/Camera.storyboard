@@ -181,13 +181,11 @@
                     </view>
                     <connections>
                         <outlet property="acceptButton" destination="Dp0-08-w0S" id="6zc-9m-8hA"/>
-                        <outlet property="bottomMenuView" destination="2Ls-K3-0Sw" id="C5y-Ma-Wlv"/>
                         <outlet property="cameraButtonContainer" destination="T9O-wu-Dvy" id="Xez-66-eGz"/>
                         <outlet property="cancelButton" destination="acf-hU-Mmp" id="fZO-RO-izz"/>
                         <outlet property="scanTitleLabel" destination="EcK-IJ-lQb" id="FtE-ek-x85"/>
                         <outlet property="scanValueLabel" destination="vS5-XW-7FW" id="LSq-RX-3lr"/>
                         <outlet property="switchModeButton" destination="oUL-uy-MI1" id="lVk-zs-HIS"/>
-                        <outlet property="topMenuView" destination="drZ-b1-cAG" id="KPd-NA-K9a"/>
                         <outlet property="valuePreviewView" destination="hQc-UR-QCS" id="WF9-cW-v4L"/>
                         <outlet property="valuePreviewViewBottomConstraint" destination="Wks-9t-kdY" id="zGD-j5-5co"/>
                         <outlet property="videoPreviewView" destination="Sgz-SW-jRM" id="AMx-Xj-jx6"/>
