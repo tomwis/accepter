@@ -13,7 +13,7 @@ import AVFoundation
 class TextRecognitionService {
     var requests = [String: VNRecognizeTextRequest]()
     
-    func findTextOnImage(imageData: Data, progressHandler: @escaping (Double) -> Void, _ completionHandler: @escaping ([((CGPoint, CGPoint, CGPoint, CGPoint), String)]) -> Void) -> String {
+    func findTextOnImage(imageData: Data, progressHandler: @escaping (Double) -> Void, _ completionHandler: @escaping ([(CGRect, String)]) -> Void) -> String {
         
         let id = NSUUID().uuidString
         
@@ -22,7 +22,7 @@ class TextRecognitionService {
 
             let request = VNRecognizeTextRequest { (request, error) in self.findTextOnImageCompleted(request, error, completionHandler) }
             request.recognitionLevel = .accurate
-//            request.usesLanguageCorrection = true
+            request.usesLanguageCorrection = true
             request.revision = VNRecognizeTextRequestRevision1
             request.progressHandler = { (request, fractionCompleted, error) in self.findTextOnImageProgress(request, fractionCompleted, error, progressHandler) }
             
@@ -47,19 +47,18 @@ class TextRecognitionService {
         }
     }
     
-    private func findTextOnImageCompleted(_ request: VNRequest, _ error: Error?, _ completionHandler: @escaping ([((CGPoint, CGPoint, CGPoint, CGPoint), String)]) -> Void) {
+    private func findTextOnImageCompleted(_ request: VNRequest, _ error: Error?, _ completionHandler: @escaping ([(CGRect, String)]) -> Void) {
         guard let results = request.results as? [VNRecognizedTextObservation]
             else { return }
         
-        var boundingBoxes = [((CGPoint, CGPoint, CGPoint, CGPoint), String)]()
+        var boundingBoxes = [(CGRect, String)]()
         for visionResult in results {
             let maxCandidates = 1
-            guard let candidate = visionResult.topCandidates(maxCandidates).first
-                else { continue }
+            guard let candidate = visionResult.topCandidates(maxCandidates).first else {
+                continue
+            }
             
-//            print("candidate: \(candidate.string)")
-            
-            let bounds = (visionResult.bottomLeft, visionResult.bottomRight, visionResult.topRight, visionResult.topLeft)
+            let bounds = CGRect(topLeft: visionResult.topLeft, topRight: visionResult.topRight, bottomLeft: visionResult.bottomLeft, bottomRight: visionResult.bottomRight)
             boundingBoxes.append((bounds, candidate.string))
         }
         
@@ -74,11 +73,11 @@ class TextRecognitionService {
         progressHandler(fractionCompleted)
     }
 
-    func findTextOnImageInRealtime(sampleBuffer: CMSampleBuffer, regionOfInterest: CGRect?, orientation: CGImagePropertyOrientation, _ completionHandler: @escaping ([((CGPoint, CGPoint, CGPoint, CGPoint), String)]) -> Void) {
+    func findTextOnImageFromCamera(sampleBuffer: CMSampleBuffer, regionOfInterest: CGRect?, orientation: CGImagePropertyOrientation, _ completionHandler: @escaping ([(CGRect, String)]) -> Void) {
                 
         if let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
 
-            let request = VNRecognizeTextRequest { (request, error) in self.findTextOnImageInRealtimeCompleted(request, error, completionHandler) }
+            let request = VNRecognizeTextRequest { (request, error) in self.findTextOnImageFromCameraCompleted(request, error, completionHandler) }
             request.recognitionLevel = .accurate
             request.usesLanguageCorrection = true
             request.revision = VNRecognizeTextRequestRevision1
@@ -96,21 +95,17 @@ class TextRecognitionService {
         }
     }
         
-    private func findTextOnImageInRealtimeCompleted(_ request: VNRequest, _ error: Error?, _ completionHandler: @escaping ([((CGPoint, CGPoint, CGPoint, CGPoint), String)]) -> Void) {
+    private func findTextOnImageFromCameraCompleted(_ request: VNRequest, _ error: Error?, _ completionHandler: @escaping ([(CGRect, String)]) -> Void) {
         guard let results = request.results as? [VNRecognizedTextObservation] else {
             return
         }
         
-        var boundingBoxes = [((CGPoint, CGPoint, CGPoint, CGPoint), String)]()
-        for visionResult in results {
-            let maxCandidates = 1
-            guard let candidate = visionResult.topCandidates(maxCandidates).first else {
-                continue
-            }
-            
-//            print("candidate: \(candidate.string)")
-            
-            let bounds = (visionResult.bottomLeft, visionResult.bottomRight, visionResult.topRight, visionResult.topLeft)
+        var boundingBoxes = [(CGRect, String)]()
+        
+        // In real time detection we need only one result, so we can ignore the rest
+        if let visionResult = results.first,
+            let candidate = visionResult.topCandidates(1).first {
+            let bounds = CGRect(topLeft: visionResult.topLeft, topRight: visionResult.topRight, bottomLeft: visionResult.bottomLeft, bottomRight: visionResult.bottomRight)
             boundingBoxes.append((bounds, candidate.string))
         }
         

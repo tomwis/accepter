@@ -259,7 +259,7 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         if isTextRecognitionActive {
             isTextRecognitionActive = false
             
-            textRecognitionService.findTextOnImageInRealtime(sampleBuffer: sampleBuffer, regionOfInterest: cameraService.regionOfInterest, orientation: cameraService.orientation) { (items) in
+            textRecognitionService.findTextOnImageFromCamera(sampleBuffer: sampleBuffer, regionOfInterest: cameraService.regionOfInterest, orientation: cameraService.orientation) { (items) in
 
 //                print("=== Recognized: \(items)")
                 
