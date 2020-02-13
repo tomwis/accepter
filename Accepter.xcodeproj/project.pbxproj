@@ -19,6 +19,7 @@
 		223FB70D23DEE01800D78BEF /* Accepter_Mocks.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 223FB70B23DEE01800D78BEF /* Accepter_Mocks.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		223FB71323DEF2C000D78BEF /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223FB71223DEF2C000D78BEF /* LoginResponse.swift */; };
 		223FB71523DEFAE600D78BEF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223FB71423DEFAE600D78BEF /* Constants.swift */; };
+		224AAA3323F5676B009B9D1D /* AccepterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AAA3223F5676B009B9D1D /* AccepterUITests.swift */; };
 		2254906F23E18AE000CF31D7 /* ExpensesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2254906E23E18ADF00CF31D7 /* ExpensesService.swift */; };
 		2255DF5523E8203200B44458 /* ExpenseEditCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255DF5423E8203200B44458 /* ExpenseEditCoordinator.swift */; };
 		2255DF5723E8623C00B44458 /* TextRecognitionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255DF5623E8623C00B44458 /* TextRecognitionService.swift */; };
@@ -85,6 +86,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		224AAA3523F5676B009B9D1D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22AC17DC23AA670700663D66 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22AC17E323AA670700663D66;
+			remoteInfo = Accepter;
+		};
 		22FDD09E23F4039F007F1224 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 22AC17DC23AA670700663D66 /* Project object */;
@@ -120,6 +128,9 @@
 		223FB70B23DEE01800D78BEF /* Accepter_Mocks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Accepter_Mocks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		223FB71223DEF2C000D78BEF /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		223FB71423DEFAE600D78BEF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		224AAA3023F5676B009B9D1D /* AccepterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AccepterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		224AAA3223F5676B009B9D1D /* AccepterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccepterUITests.swift; sourceTree = "<group>"; };
+		224AAA3423F5676B009B9D1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2254906E23E18ADF00CF31D7 /* ExpensesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesService.swift; sourceTree = "<group>"; };
 		2255DF5423E8203200B44458 /* ExpenseEditCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseEditCoordinator.swift; sourceTree = "<group>"; };
 		2255DF5623E8623C00B44458 /* TextRecognitionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognitionService.swift; sourceTree = "<group>"; };
@@ -192,6 +203,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		224AAA2D23F5676B009B9D1D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		22AC17E123AA670700663D66 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -229,6 +247,15 @@
 				222AC6D923D6EE0200EF7760 /* FieldName.swift */,
 			);
 			path = Enums;
+			sourceTree = "<group>";
+		};
+		224AAA3123F5676B009B9D1D /* AccepterUITests */ = {
+			isa = PBXGroup;
+			children = (
+				224AAA3223F5676B009B9D1D /* AccepterUITests.swift */,
+				224AAA3423F5676B009B9D1D /* Info.plist */,
+			);
+			path = AccepterUITests;
 			sourceTree = "<group>";
 		};
 		2258BFA223E2F1370011E5EF /* Cells */ = {
@@ -282,6 +309,7 @@
 			children = (
 				22AC17E623AA670700663D66 /* Accepter */,
 				22FDD09A23F4039F007F1224 /* AccepterTests */,
+				224AAA3123F5676B009B9D1D /* AccepterUITests */,
 				22AC17E523AA670700663D66 /* Products */,
 				A690239846DEC0F6FBF76941 /* Pods */,
 				FF5E734A075DB75ED6136CB3 /* Frameworks */,
@@ -293,6 +321,7 @@
 			children = (
 				22AC17E423AA670700663D66 /* Accepter.app */,
 				22FDD09923F4039F007F1224 /* AccepterTests.xctest */,
+				224AAA3023F5676B009B9D1D /* AccepterUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -484,6 +513,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		224AAA2F23F5676B009B9D1D /* AccepterUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 224AAA3923F5676B009B9D1D /* Build configuration list for PBXNativeTarget "AccepterUITests" */;
+			buildPhases = (
+				224AAA2C23F5676B009B9D1D /* Sources */,
+				224AAA2D23F5676B009B9D1D /* Frameworks */,
+				224AAA2E23F5676B009B9D1D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				224AAA3623F5676B009B9D1D /* PBXTargetDependency */,
+			);
+			name = AccepterUITests;
+			productName = AccepterUITests;
+			productReference = 224AAA3023F5676B009B9D1D /* AccepterUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		22AC17E323AA670700663D66 /* Accepter */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 22AC17F823AA670A00663D66 /* Build configuration list for PBXNativeTarget "Accepter" */;
@@ -532,6 +579,10 @@
 				LastUpgradeCheck = 1110;
 				ORGANIZATIONNAME = "Tomasz Wiśniewski";
 				TargetAttributes = {
+					224AAA2F23F5676B009B9D1D = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = 22AC17E323AA670700663D66;
+					};
 					22AC17E323AA670700663D66 = {
 						CreatedOnToolsVersion = 11.1;
 					};
@@ -556,11 +607,19 @@
 			targets = (
 				22AC17E323AA670700663D66 /* Accepter */,
 				22FDD09823F4039F007F1224 /* AccepterTests */,
+				224AAA2F23F5676B009B9D1D /* AccepterUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		224AAA2E23F5676B009B9D1D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		22AC17E223AA670700663D66 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -647,6 +706,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		224AAA2C23F5676B009B9D1D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				224AAA3323F5676B009B9D1D /* AccepterUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		22AC17E023AA670700663D66 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -724,6 +791,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		224AAA3623F5676B009B9D1D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22AC17E323AA670700663D66 /* Accepter */;
+			targetProxy = 224AAA3523F5676B009B9D1D /* PBXContainerItemProxy */;
+		};
 		22FDD09F23F4039F007F1224 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 22AC17E323AA670700663D66 /* Accepter */;
@@ -743,6 +815,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		224AAA3723F5676B009B9D1D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 63N8X22DA7;
+				INFOPLIST_FILE = AccepterUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org1.AccepterUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Accepter;
+			};
+			name = Debug;
+		};
+		224AAA3823F5676B009B9D1D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 63N8X22DA7;
+				INFOPLIST_FILE = AccepterUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org1.AccepterUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Accepter;
+			};
+			name = Release;
+		};
 		22AC17F623AA670A00663D66 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -940,6 +1052,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		224AAA3923F5676B009B9D1D /* Build configuration list for PBXNativeTarget "AccepterUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				224AAA3723F5676B009B9D1D /* Debug */,
+				224AAA3823F5676B009B9D1D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		22AC17DF23AA670700663D66 /* Build configuration list for PBXProject "Accepter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
