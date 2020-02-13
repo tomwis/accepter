@@ -15,7 +15,7 @@ class CGRectTests: XCTestCase {
         
         XCTAssertEqual(rect.origin.x, -4)
         XCTAssertEqual(rect.origin.y, -3)
-        XCTAssertEqual(rect.size.width, 14)
-        XCTAssertEqual(rect.size.height, 16)
+        XCTAssertEqual(rect.size.width, 19)
+        XCTAssertEqual(rect.size.height, 21)
     }
 }

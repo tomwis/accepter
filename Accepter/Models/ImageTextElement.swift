@@ -9,37 +9,31 @@
 import UIKit
 
 class ImageTextElement {
-    init(topLeftPercent: CGPoint, topRightPercent: CGPoint, bottomLeftPercent: CGPoint, bottomRightPercent: CGPoint, imageSize: CGSize, text: String) {
-        self.topLeftPercent = topLeftPercent
-        self.topRightPercent = topRightPercent
-        self.bottomLeftPercent = bottomLeftPercent
-        self.bottomRightPercent = bottomRightPercent
+    init(textRect: CGRect, imageSize: CGSize, text: String) {
+        self.textRectInPercent = textRect
         self.imageSize = imageSize
         self.text = text
     }
     
-    let topLeftPercent: CGPoint
-    let topRightPercent: CGPoint
-    let bottomLeftPercent: CGPoint
-    let bottomRightPercent: CGPoint
+    let textRectInPercent: CGRect
     let imageSize: CGSize
     let text: String
     var numberValue: Double?
-    
+        
     var x: CGFloat {
-        topLeftPercent.x * imageSize.width
+        textRectInPercent.origin.x * imageSize.width
     }
     
     var y: CGFloat {
-        (1 - topLeftPercent.y) * imageSize.height
+        (1 - textRectInPercent.origin.y) * imageSize.height
     }
     
     var width: CGFloat {
-        (topRightPercent.x - topLeftPercent.x) * imageSize.width
+        textRectInPercent.width * imageSize.width
     }
     
     var height: CGFloat {
-        (topLeftPercent.y - bottomLeftPercent.y) * imageSize.height
+        textRectInPercent.height * imageSize.height
     }
     
     var topLeft: CGPoint {

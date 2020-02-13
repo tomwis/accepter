@@ -16,10 +16,10 @@ class DocumentAnalysisService {
     
     init() { }
     
-    init(regions: [((CGPoint, CGPoint, CGPoint, CGPoint), String)], imageSize: CGSize) {
+    init(regions: [(CGRect, String)], imageSize: CGSize) {
         
-        for ((bottomLeft, bottomRight, topRight, topLeft), text) in regions {
-            imageTextElements.append(ImageTextElement(topLeftPercent: topLeft, topRightPercent: topRight, bottomLeftPercent: bottomLeft, bottomRightPercent: bottomRight, imageSize: imageSize, text: text))
+        for (rect, text) in regions {
+            imageTextElements.append(ImageTextElement(textRect: rect, imageSize: imageSize, text: text))
         }
         
         analizeElements()
@@ -31,8 +31,8 @@ class DocumentAnalysisService {
         analizeElements()
     }
     
-    func addRegion(_ region: ((CGPoint, CGPoint, CGPoint, CGPoint), String)) {
-        imageTextElements.append(ImageTextElement(topLeftPercent: region.0.3, topRightPercent: region.0.2, bottomLeftPercent: region.0.0, bottomRightPercent: region.0.1, imageSize: CGSize(), text: region.1))
+    func addRegion(_ region: (CGRect, String)) {
+        imageTextElements.append(ImageTextElement(textRect: region.0, imageSize: CGSize(), text: region.1))
         
         analizeElement(imageTextElements.last)
     }
@@ -66,14 +66,23 @@ class DocumentAnalysisService {
         // Because financial numbers on invoices/receipts usually have fractional part
         // Even if it's just .00
         var filtered = numberElements.filter { (element) -> Bool in
-            let str = String(element.numberValue!)
-            var integerPart = Substring(str)
+            let stringNumber = String(element.numberValue!)
+            var integerPart = Substring(stringNumber)
             
-            if str.contains(".") {
-                let parts = str.split(separator: ".")
+            // When Double doesn't have fractional part and is converted to String
+            // Then String formats it with .0
+            // We check if that .0 fractional part is present in original string
+            // Because we want only numbers that were formatted that way on the image
+            guard element.text.contains(stringNumber.replacingOccurrences(of: ".", with: ",")) ||
+                element.text.contains(stringNumber.replacingOccurrences(of: ",", with: ".")) else {
+                return false
+            }
+            
+            if stringNumber.contains(".") {
+                let parts = stringNumber.split(separator: ".")
                 integerPart = parts[0]
-            } else if str.contains(",") {
-                let parts = str.split(separator: ",")
+            } else if stringNumber.contains(",") {
+                let parts = stringNumber.split(separator: ",")
                 integerPart = parts[0]
             } else {
                 return false

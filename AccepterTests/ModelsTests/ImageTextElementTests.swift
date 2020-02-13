@@ -74,11 +74,6 @@ class ImageTextElementTests: XCTestCase {
     }
     
     private func getElement() -> ImageTextElement {
-        return ImageTextElement(topLeftPercent: CGPoint(x: 0.1, y: 0.9),
-                                topRightPercent: CGPoint(x: 0.3, y: 0.9),
-                                bottomLeftPercent: CGPoint(x: 0.1, y: 0.8),
-                                bottomRightPercent: CGPoint(x: 0.3, y: 0.8),
-                                imageSize: CGSize(width: 100, height: 80),
-                                text: "")
+        return ImageTextElement(textRect: CGRect(x: 0.1, y: 0.9, width: 0.2, height: 0.1), imageSize: CGSize(width: 100, height: 80), text: "")
     }
 }
