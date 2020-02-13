@@ -115,6 +115,15 @@ class ExpenseViewController: UIViewController, Storyboarded, TabBarChildControll
         categoryField.field.placeholder = "Category"
         amountField.field.placeholder = "Amount"
         
+        titleField.field.accessibilityIdentifier = "TitleField"
+        categoryField.field.accessibilityIdentifier = "CategoryField"
+        amountField.field.accessibilityIdentifier = "AmountField"
+        saveAsDraftButton.accessibilityIdentifier = "SaveDraftButton"
+        
+        titleField.errorLabel.accessibilityIdentifier = "TitleFieldError"
+        categoryField.errorLabel.accessibilityIdentifier = "CategoryFieldError"
+        amountField.errorLabel.accessibilityIdentifier = "AmountFieldError"
+        
         titleField.field.returnKeyType = .next
         categoryField.field.returnKeyType = .next
         amountField.field.returnKeyType = .done
