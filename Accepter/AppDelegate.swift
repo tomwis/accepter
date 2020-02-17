@@ -31,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         URLProtocol.registerClass(MockUrlProtocol.self)
         
         AppDelegate.initializeIocContainer()
+        AppDelegate.container.resolve(LocalStorageService.self)!.checkMigrations()
         
         window = UIWindow(frame: UIScreen.main.bounds)
         coordinator = AppCoordinator(window: window!)

@@ -24,8 +24,9 @@ class UserService {
             try webRequestService.get(url: AppSettings.baseUrl + AppSettings.userUrl) { (user: User?) in
                 if let user = user {
                     try? self.localStorageService.saveCurrentUser(user: user)
-                    completionHandler(user)
                 }
+                
+                completionHandler(user)
             }
         }
     }

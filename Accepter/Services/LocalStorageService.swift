@@ -11,12 +11,10 @@ import RealmSwift
 
 class LocalStorageService {
     let authorizationService: AuthorizationService
-    var notificationTokens = [NotificationToken]()
+    var notificationTokens: [NotificationToken] = [NotificationToken]()
     
     init(authorizationService: AuthorizationService) {
         self.authorizationService = authorizationService
-        
-        checkMigrations()
     }
     
     func checkMigrations() {
