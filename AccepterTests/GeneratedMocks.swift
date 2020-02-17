@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Accepter/Protocols/WebRequestService.swift at 2020-02-17 07:35:44 +0000
+// MARK: - Mocks generated from file: Accepter/Protocols/WebRequestService.swift at 2020-02-17 08:21:43 +0000
 
 //
 //  WebRequestService.swift
@@ -177,7 +177,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Accepter/Services/AuthorizationService.swift at 2020-02-17 07:35:44 +0000
+// MARK: - Mocks generated from file: Accepter/Services/AuthorizationService.swift at 2020-02-17 08:21:43 +0000
 
 //
 //  AuthorizationService.swift
@@ -327,7 +327,7 @@ import RealmSwift
 }
 
 
-// MARK: - Mocks generated from file: Accepter/Services/LocalStorageService.swift at 2020-02-17 07:35:44 +0000
+// MARK: - Mocks generated from file: Accepter/Services/LocalStorageService.swift at 2020-02-17 08:21:43 +0000
 
 //
 //  LocalStorageService.swift
