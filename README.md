@@ -1,9 +1,9 @@
 # Accepter
-App created as an exercise when learning Swift.
+App created as an exercise when learning Swift. It uses MVVMC pattern.
 
-App is in progress and currently works with mocked data.
+App is in progress and currently works with mocked data contained in separate project. It is injected via URLProtocol from json files.
 
-App can be used to to manage expenses. Functionality:
+App can be used to manage expenses. Functionality:
 - Add new expense: title, category, amount, attachments
 - Edit expense draft
 - Send draft to approval
@@ -15,6 +15,18 @@ App can be used to to manage expenses. Functionality:
   - Recognize text from which we can select title/category
 - Attachment is analized and we can select number/text from it as amount/title/category
 - Dashboard with most important data
+
+# Used libraries/technologies
+- Bond
+- IQKeyboardManagerSwift
+- RealmSwift
+- Swinject
+- SwiftMessages
+- Alamofire
+- Cuckoo
+- UIKit (storyboards, xibs)
+- Vision framework
+- XCTest (unit and UI tests)
 
 # Screenshots
 <p>
@@ -32,9 +44,4 @@ App can be used to to manage expenses. Functionality:
 <img src="/Screenshots/photo_analysis.jpeg" tag="Analysis of a photo" title="Analysis of a photo" width="220" />
 <img src="/Screenshots/photo_amount_detection.jpeg" tag="Amount detection from a photo" title="Amount detection from a photo" width="220" />
 <img src="/Screenshots/camera_recognize_amount.jpeg" tag="Recognize amount from camera feed" title="Recognize amount from camera feed" width="220" />
-
-
-
-
-
 </p>
