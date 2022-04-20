@@ -6,7 +6,7 @@ PODS:
   - Cuckoo (1.0.6)
   - Differ (1.4.3)
   - IQKeyboardManagerSwift (6.4.0)
-  - ReactiveKit (3.13.0)
+  - ReactiveKit (3.19.1)
   - Realm (3.17.0):
     - Realm/Headers (= 3.17.0)
   - Realm/Headers (3.17.0)
@@ -30,7 +30,7 @@ DEPENDENCIES:
   - SwinjectAutoregistration
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - Alamofire
     - Bond
     - Cuckoo
@@ -49,7 +49,7 @@ SPEC CHECKSUMS:
   Cuckoo: 8074fc309159c4862665b83798f5ad03e061e8bd
   Differ: 6c7477d6187e8c36d02ec342a3c321061b85a0ea
   IQKeyboardManagerSwift: ed9b04ee0e3067ffba543283462d619f944b05e5
-  ReactiveKit: 4a938b0671b0b068232926a443da19d535a03023
+  ReactiveKit: a36ebeb959fe6852dd674cc423163bfffb7e0541
   Realm: b30db41ff34fc858ffc25ba8d44a82c164e7ccd0
   RealmSwift: fe733e459d60dc7b6971d4cbee2eb4854097d12c
   SwiftMessages: a952f7a9103d9aeab93730a2861d2d8fcdd8758f
@@ -58,4 +58,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: b9de65bafdad187baa114d9da83c1efaffdcb6cb
 
-COCOAPODS: 1.5.2
+COCOAPODS: 1.11.3
